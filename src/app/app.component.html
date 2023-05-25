@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-4">
+      <div id="ccp" class="ccp"></div>      
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-8" *ngIf="agentName">
+
+      <div class="row mb-4">
+        <div class="col-12 border border-1 p-0">
+          <div  class="bg-4a4a4a text-center p-y-7 text-white">Contact Attributes</div>
+          <div class="px-2">
+            <div class="p-y-7">Queue Name - {{agentName}}</div>
+            <div>Broker Name - </div>
+            <div class="p-y-7">Broker Code - </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12 border border-1 p-0">
+          <div  class="bg-4a4a4a text-center p-y-7 text-white">Contact Disposition</div>
+          <div class="p-4">
+            <input type="text" class="form-control " id="inputValidation" placeholder="Select an intent during call"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 border border-1 p-0">
+          <div  class="bg-4a4a4a text-center p-y-7 text-white">Actions</div>
+          <div class="p-4">
+            <input type="text" class="form-control " id="inputValidation" placeholder="Select a queue"/>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
