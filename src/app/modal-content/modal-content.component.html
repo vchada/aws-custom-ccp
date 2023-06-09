@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h4 class="modal-title">Welcome Back</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <p *ngIf="!this.addressForm.enabled">Please verify your current location.</p>
+    <p *ngIf="this.addressForm.enabled">Please fill below details.</p>
+
+
+    <form [formGroup]="addressForm">
+ 
+        <p>
+          <label for="address">Address <span class="text-danger">*</span></label>
+          <input type="text" id="address" name="address" class="form-control " formControlName="address">
+        </p>
+
+        <p>
+            <label for="city">City <span class="text-danger">*</span></label>
+            <input type="text" id="city" name="city" class="form-control " formControlName="city">
+          </p>
+
+          <p>
+            <label for="county">County <span class="text-danger">*</span></label>
+            <input type="text" id="county" name="county" class="form-control " formControlName="county">
+          </p>
+
+          <p>
+            <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
+            <input type="text" id="postalCode" name="postalCode" class="form-control " formControlName="postalCode">
+          </p>
+
+          <p>
+            <label for="state">State <span class="text-danger">*</span></label>
+            <input type="text" id="state" name="state" class="form-control " formControlName="state">
+          </p>
+
+          <p>
+            <label for="country">Country <span class="text-danger">*</span></label>
+            <input type="text" id="country" name="country" class="form-control " formControlName="country">
+          </p>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button> -->
+
+    <button type="button" *ngIf="!this.addressForm.enabled" class="btn btn-outline-dark" (click)="onClick('no')">No</button>
+
+    <button type="button" *ngIf="!this.addressForm.enabled" class="btn btn-dark" (click)="onClick('yes')">Yes</button>
+
+    
+    <button type="button" *ngIf="this.addressForm.enabled" class="btn btn-outline-dark" (click)="onClick('cancel')">Cancel</button>
+    
+    <button type="button" *ngIf="this.addressForm.enabled" class="btn btn-outline-dark" (click)="onClick('reset')">Reset</button>
+
+    <button type="button" *ngIf="this.addressForm.enabled" class="btn btn-dark" (click)="onClick('save')" [disabled]="!addressForm.valid">Save</button>
+</div>

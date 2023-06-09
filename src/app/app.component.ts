@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { ModalContentComponent } from './modal-content/modal-content.component';
 
 declare var connect: any;
 
@@ -13,9 +15,8 @@ export class AppComponent implements OnInit {
   agentContacts: any;
   agentPermissions: any;
   
-  constructor() {
-    
-  }
+  
+  constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
     connect.core.initCCP(document.getElementById('ccp'), {
@@ -45,5 +46,16 @@ export class AppComponent implements OnInit {
         // receive contact metadata
         const contactAttributes = contact.getAttributes()
     })
+
+    this.open();
   }
+
+	open() {
+    let ngbModalOptions: NgbModalOptions = {
+      backdrop : 'static',
+      keyboard : false
+  };
+		const modalRef = this.modalService.open(ModalContentComponent, ngbModalOptions);
+		modalRef.componentInstance.name = 'World';
+	}
 }

@@ -7,29 +7,115 @@
 
       <div class="row mb-4">
         <div class="col-12 border border-1 p-0">
-          <div  class="bg-4a4a4a text-center p-y-7 text-white">Contact Attributes</div>
-          <div class="px-2">
-            <div class="p-y-7">Queue Name - {{agentName}}</div>
+          <div  class="bg-4a4a4a text-center p-y-7 text-white">Alert Center (Active Alert)</div>
+          <div class="p-2">
+            <!-- <div class="p-y-7">Queue Name - {{agentName}}</div>
             <div>Broker Name - </div>
-            <div class="p-y-7">Broker Code - </div>
+            <div class="p-y-7">Broker Code - </div> -->
+            <div class="text-success">12x message 02 same SG 01</div>
           </div>
         </div>
       </div>
 
       <div class="row mb-4">
         <div class="col-12 border border-1 p-0">
-          <div  class="bg-4a4a4a text-center p-y-7 text-white">Contact Disposition</div>
-          <div class="p-4">
-            <input type="text" class="form-control " id="inputValidation" placeholder="Select an intent during call"/>
+          <div  class="bg-4a4a4a text-center p-y-7 text-white">Verfication Information</div>
+          <div class="p-2">
+            <div class="form-control m-y-7">
+              <h5>Caller Verfication</h5>
+
+              <div class="row">
+                <div class="col-4">
+                  <label for="">Verfication</label>
+                  <select class="form-select">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+
+                <div class="col-8">
+                  <label for="">Notes</label>
+                  <textarea id="notes" name="notes" class="form-control "></textarea>
+                </div>
+              </div>
+            
+            </div>
+            <div class="form-control">
+              <h5>policy</h5>
+
+              <div class="row">
+                <div class="col-4">
+                  <label for="">ID Number</label>
+                  <input type="text" id="idNumber" name="idNumber" class="form-control ">
+                </div>
+
+                <div class="col-4">
+                  <label for="">LOB</label>
+                  <input type="text" id="lob" name="lob" class="form-control ">
+                </div>
+
+                <div class="col-4">
+                  <label for="">Source</label>
+                  <input type="text" id="source" name="source" class="form-control ">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 btn-section">
+                  <button type="button" class="btn btn-sm btn-dark ms-2">Save Change</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-control m-y-7">
+              <h5>Caller Identification</h5>
+
+              <div class="row">
+                <div class="col-4">
+                  <label for="">First Name</label>
+                  <input type="text" id="firstname" name="firstname" class="form-control ">
+                </div>
+
+                <div class="col-4">
+                  <label for="">Last Name</label>
+                  <input type="text" id="lastname" name="lastname" class="form-control ">
+                </div>
+
+                <div class="col-4">
+                  <label for="">Suffix</label>
+                  <input type="text" id="suffix" name="suffix" class="form-control ">
+                </div>
+
+                <div class="col-4">
+                  <label for="">Relation</label>
+                  <select class="form-select">
+                    <option>Father</option>
+                    <option>Mother</option>
+                    <option>Others</option>
+                  </select>
+                </div>
+
+                <div class="col-4">
+                  <label for="">Status</label>
+                  <select class="form-select">
+                    <option>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+
+
+              </div>
+            
+            </div>
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="col-12 border border-1 p-0">
-          <div  class="bg-4a4a4a text-center p-y-7 text-white">Actions</div>
-          <div class="p-4">
-            <input type="text" class="form-control " id="inputValidation" placeholder="Select a queue"/>
+          <div  class="bg-4a4a4a text-center p-y-7 text-white">Click to connect</div>
+          <div class="p-2">
+            <div class="text-success">Successfully Connected</div>
           </div>
         </div>
       </div>
