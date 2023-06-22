@@ -32,11 +32,13 @@ export class AppComponent implements OnInit {
           enableAudioDeviceSettings: true,
           enablePhoneTypeSettings: true
       }
+      
     })
     
     connect.agent((agent: any) => {
       // gather information about the agent
       this.agentName = agent.getName()
+      
       this.agentContacts = agent.getContacts()
       this.agentPermissions = agent.getPermissions()
     })
@@ -44,7 +46,7 @@ export class AppComponent implements OnInit {
     // On inbound communication
     connect.contact((contact: any) => {
         // receive contact metadata
-        const contactAttributes = contact.getAttributes()
+        const contactAttributes = contact.getAttributes();
     })
 
     this.open();
