@@ -7,15 +7,12 @@ declare var connect: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  agent: any;
+  isUserAgent: boolean | undefined;
 
-  agentName = ''
-  agentContacts: any;
-  agentPermissions: any;
-  
-  
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
@@ -26,38 +23,52 @@ export class AppComponent implements OnInit {
       loginPopup: true,
       loginPopupAutoClose: true,
       softphone: {
-          allowFramedSoftphone: true
+        allowFramedSoftphone: true,
       },
       pageOptions: {
-          enableAudioDeviceSettings: true,
-          enablePhoneTypeSettings: true
-      }
-      
-    })
-    
+        enableAudioDeviceSettings: true,
+        enablePhoneTypeSettings: true,
+      },
+    });
+
     connect.agent((agent: any) => {
       // gather information about the agent
-      this.agentName = agent.getName()
-      
-      this.agentContacts = agent.getContacts()
-      this.agentPermissions = agent.getPermissions()
-    })
-    
-    // On inbound communication
-    connect.contact((contact: any) => {
-        // receive contact metadata
-        const contactAttributes = contact.getAttributes();
-    })
+      this.agent = agent;
+
+      const agentSnapshot = agent.getRoutingProfile();
+      if (agentSnapshot.defaultOutboundQueueId) {
+        // The agent has a supervisor routing profile assigned
+        console.log('Supervisor');
+        this.isUserAgent = false;
+      } else {
+        // The agent does not have a supervisor routing profile assigned
+        console.log('Agent');
+        this.isUserAgent = true;
+      }
+
+      agent.onRoutingProfile((routingProfile: any) => {
+        if (routingProfile.defaultOutboundQueueId) {
+          console.log('Role changed to Supervisor');
+          this.isUserAgent = false;
+        } else {
+          console.log('Role changed to Agent');
+          this.isUserAgent = true;
+        }
+      });
+    });
 
     this.open();
   }
 
-	open() {
+  open() {
     let ngbModalOptions: NgbModalOptions = {
-      backdrop : 'static',
-      keyboard : false
-  };
-		const modalRef = this.modalService.open(ModalContentComponent, ngbModalOptions);
-		modalRef.componentInstance.name = 'World';
-	}
+      backdrop: 'static',
+      keyboard: false,
+    };
+    const modalRef = this.modalService.open(
+      ModalContentComponent,
+      ngbModalOptions
+    );
+    modalRef.componentInstance.name = 'World';
+  }
 }

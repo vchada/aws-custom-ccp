@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SupervisorComponent } from './supervisor/supervisor.component';
+import { AgentComponent } from './agent/agent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ModalContentComponent
+    ModalContentComponent,
+    SupervisorComponent,
+    AgentComponent
   ],
   imports: [
     BrowserModule,

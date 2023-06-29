@@ -1,0 +1,188 @@
+<div class="col-sm-12 col-md-12 col-lg-12" *ngIf="agentName">
+  <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button
+          class="accordion-button bg-4a4a4a text-white p-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseOne"
+          aria-expanded="false"
+          aria-controls="flush-collapseOne"
+        >
+          Alert Center (Active Alert)
+        </button>
+      </h2>
+      <div
+        id="flush-collapseOne"
+        class="accordion-collapse collapse show"
+        aria-labelledby="flush-headingOne"
+      >
+        <div class="accordion-body">
+          <div class="text-success">12x message 02 same SG 01</div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingTwo">
+        <button
+          class="accordion-button bg-4a4a4a text-white p-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseTwo"
+          aria-expanded="false"
+          aria-controls="flush-collapseTwo"
+        >
+          Verfication Information
+        </button>
+      </h2>
+      <div
+        id="flush-collapseTwo"
+        class="accordion-collapse collapse show"
+        aria-labelledby="flush-headingTwo"
+      >
+        <div class="accordion-body">
+          <div>
+            <div class="form-control m-y-7">
+              <h6>Caller Verfication</h6>
+
+              <div class="row">
+                <div class="col-4">
+                  <label for="">Verfication</label>
+                  <select class="form-select">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+
+                <div class="col-8">
+                  <label for="">Notes</label>
+                  <textarea
+                    id="notes"
+                    name="notes"
+                    class="form-control"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-control">
+              <h6>policy</h6>
+
+              <div class="row">
+                <div class="col-4">
+                  <label for="">ID Number</label>
+                  <input
+                    type="text"
+                    id="idNumber"
+                    name="idNumber"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="">LOB</label>
+                  <input type="text" id="lob" name="lob" class="form-control" />
+                </div>
+
+                <div class="col-4">
+                  <label for="">Source</label>
+                  <input
+                    type="text"
+                    id="source"
+                    name="source"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-control m-y-7">
+              <h6>Caller Identification</h6>
+
+              <div class="row">
+                <div class="col-4">
+                  <label for="">First Name</label>
+                  <input
+                    type="text"
+                    id="firstname"
+                    name="firstname"
+                    class="form-control"
+                    [value]="agentName"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="">Suffix</label>
+                  <input
+                    type="text"
+                    id="suffix"
+                    name="suffix"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-4">
+                  <label for="">Relation</label>
+                  <select class="form-select">
+                    <option>Father</option>
+                    <option>Mother</option>
+                    <option>Others</option>
+                  </select>
+                </div>
+
+                <div class="col-4">
+                  <label for="">Status</label>
+                  <select class="form-select">
+                    <option>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 btn-section">
+                <button type="button" class="btn btn-sm btn-dark ms-2">
+                  Save Change
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingThree">
+        <button
+          class="accordion-button bg-4a4a4a text-white p-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseThree"
+          aria-expanded="false"
+          aria-controls="flush-collapseThree"
+        >
+          Click to connect
+        </button>
+      </h2>
+      <div
+        id="flush-collapseThree"
+        class="accordion-collapse collapse show"
+        aria-labelledby="flush-headingThree"
+      >
+        <div class="accordion-body">
+          <div class="text-success">Successfully Connected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
