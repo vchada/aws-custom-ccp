@@ -5,22 +5,33 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from './modal-content/modal-content.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SupervisorComponent } from './supervisor/supervisor.component';
 import { AgentComponent } from './agent/agent.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { HttpClientModule } from '@angular/common/http';
+import { ActionRenderer, StateRenderer, TeamPerformanceComponent } from './supervisor/team-performance/team-performance.component';
+import { QueueStatisticsComponent } from './supervisor/queue-statistics/queue-statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModalContentComponent,
     SupervisorComponent,
-    AgentComponent
+    AgentComponent,
+    TeamPerformanceComponent,
+    StateRenderer,
+    ActionRenderer,
+    QueueStatisticsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AgGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

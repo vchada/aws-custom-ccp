@@ -19,7 +19,7 @@
           aria-labelledby="flush-headingOne"
         >
           <div class="accordion-body">
-            Grid
+            <app-team-performance></app-team-performance>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
                 <div class="row">
                   <div class="col-4">
                     <label for="">Verfication</label>
-                    <select class="form-select">
+                    <select class="form-select form-control input-sm">
                       <option>Yes</option>
                       <option>No</option>
                     </select>
@@ -83,7 +83,7 @@
                     <textarea
                       id="notes"
                       name="notes"
-                      class="form-control"
+                      class="form-control input-sm"
                     ></textarea>
                   </div>
                 </div>
@@ -98,13 +98,13 @@
                       type="text"
                       id="idNumber"
                       name="idNumber"
-                      class="form-control"
+                      class="form-control input-sm"
                     />
                   </div>
   
                   <div class="col-4">
                     <label for="">LOB</label>
-                    <input type="text" id="lob" name="lob" class="form-control" />
+                    <input type="text" id="lob" name="lob" class="form-control input-sm" />
                   </div>
   
                   <div class="col-4">
@@ -113,7 +113,7 @@
                       type="text"
                       id="source"
                       name="source"
-                      class="form-control"
+                      class="form-control input-sm"
                     />
                   </div>
                 </div>
@@ -129,7 +129,7 @@
                       type="text"
                       id="firstname"
                       name="firstname"
-                      class="form-control"
+                      class="form-control input-sm"
                       [value]="agentName"
                     />
                   </div>
@@ -140,7 +140,7 @@
                       type="text"
                       id="lastname"
                       name="lastname"
-                      class="form-control"
+                      class="form-control input-sm"
                     />
                   </div>
   
@@ -150,13 +150,13 @@
                       type="text"
                       id="suffix"
                       name="suffix"
-                      class="form-control"
+                      class="form-control input-sm"
                     />
                   </div>
   
                   <div class="col-4">
                     <label for="">Relation</label>
-                    <select class="form-select">
+                    <select class="form-select form-control input-sm">
                       <option>Father</option>
                       <option>Mother</option>
                       <option>Others</option>
@@ -165,7 +165,7 @@
   
                   <div class="col-4">
                     <label for="">Status</label>
-                    <select class="form-select">
+                    <select class="form-select form-control input-sm">
                       <option>Active</option>
                       <option>Inactive</option>
                     </select>
@@ -203,7 +203,7 @@
           aria-labelledby="flush-headingThree"
         >
           <div class="accordion-body">
-            Grid
+            <app-queue-statistics></app-queue-statistics>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-supervisor',
@@ -9,13 +9,9 @@ export class SupervisorComponent implements OnInit {
 
   @Input() agent: any;
   agentName: string = '';
-
-  constructor() {
-
-  }
+  constructor() {}  
 
   ngOnInit(): void {
     this.agentName = this.agent.getName()
   }
-
 }
