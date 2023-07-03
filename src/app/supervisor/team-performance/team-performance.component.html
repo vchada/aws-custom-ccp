@@ -32,14 +32,17 @@
     </div>
   </div>
 </div>
+<div class="p-b-50">
 <ag-grid-angular
   #agGrid
   style="width: 100%; height: 100%"
-  class="ag-theme-alpine"
+  class="ag-theme-alpine team-performance"
   [columnDefs]="columnDefs"
   [defaultColDef]="defaultColDef"
   [rowData]="rowData"
   (gridReady)="onGridReady($event)"
   [pagination]="true"
   [paginationPageSize]="paginationPageSize"
+  [gridOptions]="gridOptions"
 ></ag-grid-angular>
+</div>

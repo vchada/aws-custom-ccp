@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ColDef, ColGroupDef, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, ColGroupDef, GridOptions, GridReadyEvent } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
@@ -55,6 +55,7 @@ export class TeamPerformanceComponent implements OnInit {
     sortable: true,
     resizable: true,
     filter: true,
+    suppressNavigable: true
   };
   public rowData!: any[];
   public paginationPageSize = 10;
@@ -62,8 +63,14 @@ export class TeamPerformanceComponent implements OnInit {
   filterText: string = '';
   includeLoggedOut = false;
   completeData = [];
+  public gridOptions: GridOptions;
 
-  constructor(private http: HttpClient) {}  
+  constructor(private http: HttpClient) {
+    
+    this.gridOptions = {
+      suppressCellFocus: true
+    };
+  }  
 
   ngOnInit(): void {
   }
@@ -150,6 +157,7 @@ export class TeamPerformanceComponent implements OnInit {
 
 }
 
+// ********************************************************************************************************************
 
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
@@ -176,16 +184,27 @@ export class StateRenderer implements ICellRendererAngularComp {
   }
 }
 
+// ********************************************************************************************************************
+
 @Component({
   selector: 'app-action-renderer',
-  template: ` 
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-  </svg> `,
+  template: `
+  <span class="action" (click)="onAction()">  
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+      <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+    </svg> 
+  </span>
+  <div class="dropdown-content" *ngIf="showDropdown">
+    <div (click)="select('Monitor')">Monitor</div>
+    <div (click)="select('Ready')">Ready</div>
+    <div (click)="select('Not ready')">Not ready</div>
+    <div (click)="select('Sign Out')">Sign Out</div>
+  </div>`,
 })
 export class ActionRenderer implements ICellRendererAngularComp {
   public imageSource!: string;
   public value: any;
+  showDropdown = false;
 
   agInit(params: ICellRendererParams): void {
     this.value = params.value;
@@ -194,5 +213,15 @@ export class ActionRenderer implements ICellRendererAngularComp {
   refresh(params: ICellRendererParams) {
     return false;
   }
+
+  onAction() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  select(val: any) {
+    this.showDropdown = false;
+  }
 }
+
+// ********************************************************************************************************************
 
