@@ -12,6 +12,12 @@
   cursor: pointer;
 }
 
+
+.option-disable {
+    background: #e4e4d6;
+    color: #b6a7a7 !important;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -37,6 +43,12 @@
 
   div:hover {
     background-color: rgb(215, 218, 218);
+    cursor: pointer;
+  }
+
+  div.option-disable:hover {
+    background-color: #e4e4d6;
+    cursor: default;
   }
 }
 

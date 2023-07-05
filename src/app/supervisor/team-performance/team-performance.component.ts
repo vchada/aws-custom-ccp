@@ -43,7 +43,8 @@ export class TeamPerformanceComponent implements OnInit {
       field: 'action',
       cellRendererSelector: (params) => {
         const actionDetails = {
-          component: ActionRenderer
+          component: ActionRenderer,
+          additionalData: params
         };
         if (params.data) {
           return actionDetails;
@@ -195,19 +196,21 @@ export class StateRenderer implements ICellRendererAngularComp {
     </svg> 
   </span>
   <div class="dropdown-content" *ngIf="showDropdown">
-    <div (click)="select('Monitor')">Monitor</div>
-    <div (click)="select('Ready')">Ready</div>
-    <div (click)="select('Not ready')">Not ready</div>
-    <div (click)="select('Sign Out')">Sign Out</div>
+    <div (click)="select('Monitor', false)">Monitor</div>
+    <div [ngClass]="state === 'Ready' ? 'option-disable': ''" (click)="select('Ready', state === 'Ready')">Ready</div>
+    <div [ngClass]="state === 'Not Ready' ? 'option-disable': ''" (click)="select('Not ready', state === 'Not Ready')">Not ready</div>
+    <div [ngClass]="state === 'Offline' ? 'option-disable': ''" (click)="select('Sign Out', state === 'Offline')">Sign Out</div>
   </div>`,
 })
 export class ActionRenderer implements ICellRendererAngularComp {
   public imageSource!: string;
   public value: any;
+  state = '';
   showDropdown = false;
 
   agInit(params: ICellRendererParams): void {
     this.value = params.value;
+    this.state = params.data.state;
   }
 
   refresh(params: ICellRendererParams) {
@@ -218,8 +221,10 @@ export class ActionRenderer implements ICellRendererAngularComp {
     this.showDropdown = !this.showDropdown;
   }
 
-  select(val: any) {
-    this.showDropdown = false;
+  select(val: any, disable: boolean) {
+    if(!disable) {
+      this.showDropdown = false;
+    }
   }
 }
 
