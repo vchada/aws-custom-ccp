@@ -8,7 +8,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 export class SupervisorComponent implements OnInit {
 
   @Input() agent: any;
+  @Input() contactAttObj: any;
   agentName: string = '';
+  
   constructor() {}  
 
   ngOnInit(): void {

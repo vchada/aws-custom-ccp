@@ -50,8 +50,8 @@
                 <div class="col-4">
                   <label for="">Verfication</label>
                   <select class="form-select">
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option [selected]="contactAttObj.verfication === 'yes'">Yes</option>
+                    <option [selected]="contactAttObj.verfication === 'no'">No</option>
                   </select>
                 </div>
 
@@ -60,6 +60,7 @@
                   <textarea
                     id="notes"
                     name="notes"
+                    [ngModel]="contactAttObj.notes"
                     class="form-control input-sm"
                   ></textarea>
                 </div>
@@ -75,6 +76,7 @@
                     type="text"
                     id="idNumber"
                     name="idNumber"
+                    [ngModel]="contactAttObj.policyNumber"
                     class="form-control input-sm"
                   />
                 </div>
@@ -90,6 +92,7 @@
                     type="text"
                     id="source"
                     name="source"
+                    [ngModel]="contactAttObj.source"
                     class="form-control input-sm"
                   />
                 </div>
@@ -106,6 +109,7 @@
                     type="text"
                     id="firstname"
                     name="firstname"
+                    [ngModel]="contactAttObj.FirstName"
                     class="form-control input-sm"
                     [value]="agentName"
                   />
@@ -117,6 +121,7 @@
                     type="text"
                     id="lastname"
                     name="lastname"
+                    [ngModel]="contactAttObj.LastName"
                     class="form-control input-sm"
                   />
                 </div>
@@ -127,6 +132,7 @@
                     type="text"
                     id="suffix"
                     name="suffix"
+                    [ngModel]="contactAttObj.suffix"
                     class="form-control input-sm"
                   />
                 </div>
@@ -134,17 +140,15 @@
                 <div class="col-4">
                   <label for="">Relation</label>
                   <select class="form-select">
-                    <option>Father</option>
-                    <option>Mother</option>
-                    <option>Others</option>
+                    <option [selected]="contactAttObj.relation === 'other'">Others</option>
                   </select>
                 </div>
 
                 <div class="col-4">
                   <label for="">Status</label>
                   <select class="form-select">
-                    <option>Active</option>
-                    <option>Inactive</option>
+                    <option [selected]="contactAttObj.status === 'active'">Active</option>
+                    <option [selected]="contactAttObj.status === 'inactive'">Inactive</option>
                   </select>
                 </div>
               </div>

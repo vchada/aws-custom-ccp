@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AgentComponent implements OnInit {
 
   @Input() agent: any;
+  @Input() contactAttObj: any;
   agentName: string = '';
 
   constructor() {

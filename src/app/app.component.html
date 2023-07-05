@@ -4,8 +4,8 @@
       <div id="ccp" class="ccp h-100vh"></div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-8">      
-      <app-agent *ngIf="agent && isUserAgent" [agent]="agent"></app-agent>
-      <app-supervisor *ngIf="agent && !isUserAgent" [agent]="agent"></app-supervisor>
+      <app-agent *ngIf="agent && !isUserAgent" [agent]="agent" [contactAttObj]="contactAttObj"></app-agent>
+      <app-supervisor *ngIf="agent && isUserAgent" [agent]="agent" [contactAttObj]="contactAttObj"></app-supervisor>
     </div>
   </div>
 </div>

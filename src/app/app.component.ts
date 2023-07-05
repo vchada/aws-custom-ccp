@@ -13,6 +13,19 @@ export class AppComponent implements OnInit {
   agent: any;
   isUserAgent: boolean | undefined;
 
+  contactAttObj: any = {
+    verfication: '',
+    notes: '',
+    policyNumber: '',
+    source: '',
+    FirstName: '',
+    LastName: '',
+    suffix: '',
+    lob: '',
+    relation: '',
+    status: '',
+  }
+
   constructor(private modalService: NgbModal) {}
 
   ngOnInit(): void {
@@ -30,6 +43,63 @@ export class AppComponent implements OnInit {
         enablePhoneTypeSettings: true,
       },
     });
+
+    // const contact = connect.core.getActiveContact();
+
+    // // Check if there is an active contact
+    // if (contact) {
+    //   const attributes = {
+    //     attribute1: 'value1',
+    //     attribute2: 'value2',
+    //     // Add more attributes as needed
+    //   };
+
+    //   // Set the contact attributes
+    //   contact.getAgent().updateContactAttributes(attributes);
+    // }
+
+    // Listen for the 'contactIncoming' event
+    connect.contact((contact: any) => {
+      // Handle the incoming contact (call)
+      // ...
+      contact.onIncoming(function(contact: any) {
+        console.log('onIncoming', contact);
+      });
+
+      contact.onRefresh(function(contact: any) {
+        console.log('onRefresh', contact);
+      });
+
+      contact.onAccepted(function(contact: any) {
+        console.log('onAccepted', contact);
+      });
+
+      contact.onEnded(function() {
+        
+        console.log('onEnded');
+      });
+
+      contact.addConnection(function(contact: any) {
+        
+        console.log('addConnection', contact);
+      });
+
+      contact.onConnected(() => {
+              console.log(`onConnected(${contact.getContactId()})`);
+              var attributeMap = contact.getAttributes();
+              if(attributeMap && attributeMap.length > 0) {
+                Object.values(attributeMap).forEach((item: any) => {
+                  this.contactAttObj[item.name] = item.value;
+                })
+              }
+      });
+    });
+
+    // connect.updateContactAttributes(params, function(err, data) {
+    //   if (err) console.log(err, err.stack); // an error occurred
+    //   else     console.log(data);           // successful response
+    // });
+ 
 
     connect.agent((agent: any) => {
       // gather information about the agent
