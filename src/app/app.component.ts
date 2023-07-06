@@ -74,8 +74,19 @@ export class AppComponent implements OnInit {
         console.log('onAccepted', contact);
       });
 
-      contact.onEnded(function() {
-        
+      contact.onEnded(() => {
+        this.contactAttObj = {
+          verfication: '',
+          notes: '',
+          policyNumber: '',
+          source: '',
+          FirstName: '',
+          LastName: '',
+          suffix: '',
+          lob: '',
+          relation: '',
+          status: '',
+        }
         console.log('onEnded');
       });
 
@@ -85,9 +96,8 @@ export class AppComponent implements OnInit {
       });
 
       contact.onConnected(() => {
-              console.log(`onConnected(${contact.getContactId()})`);
               var attributeMap = contact.getAttributes();
-              if(attributeMap && attributeMap.length > 0) {
+              if(attributeMap && Object.values(attributeMap).length > 0) {
                 Object.values(attributeMap).forEach((item: any) => {
                   this.contactAttObj[item.name] = item.value;
                 })
@@ -100,13 +110,29 @@ export class AppComponent implements OnInit {
     //   else     console.log(data);           // successful response
     // });
  
+    // connect.agent.isUserAgent((value: any) => {
+    //   debugger;
+    // })
+
+    // Check if the connected user is an agent
+
 
     connect.agent((agent: any) => {
       // gather information about the agent
       this.agent = agent;
+      if (connect.core.getAgent().getType() === connect.AgentType.AGENT) {
+        // Logic for agents
+        console.log('Connected user is an agent');
+      } else if (connect.core.getAgent().getType() === connect.AgentType.SUPERVISOR) {
+        // Logic for supervisors
+        console.log('Connected user is a supervisor');
+      } else {
+        // Logic for other roles or unidentified users
+        console.log('Connected user role unknown');
+      }
 
       const agentSnapshot = agent.getRoutingProfile();
-      if (agentSnapshot.defaultOutboundQueueId) {
+      if (agentSnapshot.defaultOutboundQueue.queueId) {
         // The agent has a supervisor routing profile assigned
         console.log('Supervisor');
         this.isUserAgent = false;
@@ -117,7 +143,7 @@ export class AppComponent implements OnInit {
       }
 
       agent.onRoutingProfile((routingProfile: any) => {
-        if (routingProfile.defaultOutboundQueueId) {
+        if (routingProfile.defaultOutboundQueue.queueId) {
           console.log('Role changed to Supervisor');
           this.isUserAgent = false;
         } else {
