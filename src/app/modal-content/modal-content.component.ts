@@ -68,7 +68,7 @@ export class ModalContentComponent implements OnInit {
         next: (res: any) => {
           console.log('fetched successfully');
           if (res) {
-            this.preferredAddress = res.preferredAddress;
+            this.preferredAddress = res.PreferredAddress;
             if (res.HomeAddress) {
               this.addressDetails.push({
                 type: 'Home',
