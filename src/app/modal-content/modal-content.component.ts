@@ -115,15 +115,15 @@ export class ModalContentComponent implements OnInit {
               }
             }
 
-            if (res.OtherAddress) {
+            if (res.OtherAddress && res.OtherAddress.mappedValidateAddressResponse) {
               this.addressDetails.push({
                 type: 'Other',
-                streetNumber: res.OtherAddress.StreetNumber? res.OtherAddress.StreetNumber: '',
-                streetInfo: res.OtherAddress.StreetInfo? res.OtherAddress.StreetInfo: '',
-                city: res.OtherAddress.City ? res.OtherAddress.City: '',
-                postalCode: res.OtherAddress.PostalCode ? res.OtherAddress.PostalCode: '',
-                state: res.OtherAddress.State ? res.OtherAddress.State: '',
-                country: res.OtherAddress.Country ? res.OtherAddress.Country: '',
+                streetNumber: res.OtherAddress.mappedValidateAddressResponse.StreetNumber? res.OtherAddress.mappedValidateAddressResponse.StreetNumber: '',
+                streetInfo: res.OtherAddress.mappedValidateAddressResponse.StreetInfo? res.OtherAddress.mappedValidateAddressResponse.StreetInfo: '',
+                city: res.OtherAddress.mappedValidateAddressResponse.City ? res.OtherAddress.mappedValidateAddressResponse.City: '',
+                postalCode: res.OtherAddress.mappedValidateAddressResponse.PostalCode ? res.OtherAddress.mappedValidateAddressResponse.PostalCode: '',
+                state: res.OtherAddress.mappedValidateAddressResponse.State ? res.OtherAddress.mappedValidateAddressResponse.State: '',
+                country: res.OtherAddress.mappedValidateAddressResponse.Country ? res.OtherAddress.mappedValidateAddressResponse.Country: '',
               });
             }
           }

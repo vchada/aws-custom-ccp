@@ -4,8 +4,6 @@
 </div>
 <div class="modal-body">
     <p *ngIf="!selectedAddressToEdit">Please verify your current location.</p>
-
-    <p>Preferred Address - {{preferredAddress}}</p>
     
     <div *ngIf="!selectedAddressToEdit">
       <div class="row" *ngFor="let address of addressDetails">
@@ -35,24 +33,24 @@
       <p>
         <label for="streetNumber">Preference <span class="text-danger">*</span></label>
         <select
-            class="form-select input-sm"
-            [ngModel]=""
+            class="form-select"
+            [ngModel]="preferredAddress"
             (click)="onSelect($event)"
           >
             <option
-              [value]="'home'"
+              value="home"
               [selected]="preferredAddress === 'home'"
             >
               Home
             </option>
             <option
-              [value]="'work'"
+              value="work"
               [selected]="preferredAddress === 'work'"
             >
               Work
             </option>
             <option
-              [value]="'other'"
+              value="other"
               [selected]="preferredAddress === 'other'"
             >
               Other
