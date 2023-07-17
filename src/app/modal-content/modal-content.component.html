@@ -14,8 +14,8 @@
               <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
             </svg>
           </a></h4>
-          <p class="mb-0">{{address.address}}</p>
-          <p>{{address.city}}, {{address.county}}, {{address.state}}, {{address.country}} - {{address.postalCode}}</p>
+          <p class="mb-0" *ngIf="address.streetNumber || address.streetInfo">{{address.streetNumber}} {{address.streetInfo}}</p>
+          <p *ngIf="address.city && address.state && address.country && address.postalCode">{{address.city}}, {{address.state}}, {{address.country}} - {{address.postalCode}}</p>
         </div>
       </div>
     </div>
@@ -23,27 +23,48 @@
 
     <p *ngIf="selectedAddressToEdit">Please fill below details.</p>
 
-
     <form [formGroup]="addressForm" *ngIf="selectedAddressToEdit">
- 
+
+      <p>
+        <label for="streetNumber">Preference <span class="text-danger">*</span></label>
+        <select
+            class="form-select input-sm"
+            [ngModel]=""
+            (click)="onSelect($event)"
+          >
+            <option
+              [value]="'home'"
+              [selected]="preferredAddress === 'home'"
+            >
+              Home
+            </option>
+            <option
+              [value]="'work'"
+              [selected]="preferredAddress === 'work'"
+            >
+              Work
+            </option>
+            <option
+              [value]="'other'"
+              [selected]="preferredAddress === 'other'"
+            >
+              Other
+            </option>
+          </select>
+      </p>
+
+      <p>
+        <label for="streetNumber">Street Number <span class="text-danger">*</span></label>
+        <input type="text" id="streetNumber" name="streetNumber" class="form-control " formControlName="streetNumber">
+      </p>
         <p>
-          <label for="address">Address <span class="text-danger">*</span></label>
-          <input type="text" id="address" name="address" class="form-control " formControlName="address">
+          <label for="streetInfo">Street Info <span class="text-danger">*</span></label>
+          <input type="text" id="streetInfo" name="streetInfo" class="form-control " formControlName="streetInfo">
         </p>
 
         <p>
             <label for="city">City <span class="text-danger">*</span></label>
             <input type="text" id="city" name="city" class="form-control " formControlName="city">
-          </p>
-
-          <p>
-            <label for="county">County <span class="text-danger">*</span></label>
-            <input type="text" id="county" name="county" class="form-control " formControlName="county">
-          </p>
-
-          <p>
-            <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
-            <input type="text" id="postalCode" name="postalCode" class="form-control " formControlName="postalCode">
           </p>
 
           <p>
@@ -54,6 +75,11 @@
           <p>
             <label for="country">Country <span class="text-danger">*</span></label>
             <input type="text" id="country" name="country" class="form-control " formControlName="country">
+          </p>
+
+          <p>
+            <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
+            <input type="text" id="postalCode" name="postalCode" class="form-control " formControlName="postalCode">
           </p>
 
     </form>
