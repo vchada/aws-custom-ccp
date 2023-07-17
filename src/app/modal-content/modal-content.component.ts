@@ -43,6 +43,7 @@ export class ModalContentComponent implements OnInit {
   };
   
   preferredAddress: string = '';
+  awsAccountId: string = '';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -125,6 +126,8 @@ export class ModalContentComponent implements OnInit {
                 state: res.OtherAddress.mappedValidateAddressResponse.State ? res.OtherAddress.mappedValidateAddressResponse.State: '',
                 country: res.OtherAddress.mappedValidateAddressResponse.Country ? res.OtherAddress.mappedValidateAddressResponse.Country: '',
               });
+
+              this.awsAccountId = res.OtherAddress.mappedValidateAddressResponse.AwsAccountId;
             }
           }
         },
@@ -173,13 +176,15 @@ export class ModalContentComponent implements OnInit {
       Country: value.country,
       preDirectional: '',
       streetSuffix: '',
-      PostalCode: value.postalCode
+      PostalCode: value.postalCode,
+      AwsAccountId: this.awsAccountId
     }
+    const reqPayload = JSON.stringify(this.submitReqData)
 
     this.httpService
       .httpPost(
         'https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod',
-        JSON.stringify(this.submitReqData)
+        reqPayload
       )
       .subscribe({
         next: () => {
