@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ContactAttribute } from '../model/contact-attribute.model';
 
 @Component({
   selector: 'app-agent',
@@ -8,15 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AgentComponent implements OnInit {
 
   @Input() agent: any;
-  @Input() contactAttObj: any;
-  agentName: string = '';
+  @Input() contactAttObj: ContactAttribute = new ContactAttribute();
 
   constructor() {
 
   }
 
   ngOnInit(): void {
-    this.agentName = this.agent.getName()
   }
 
 }

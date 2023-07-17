@@ -9,11 +9,9 @@ export class SupervisorComponent implements OnInit {
 
   @Input() agent: any;
   @Input() contactAttObj: any;
-  agentName: string = '';
   
   constructor() {}  
 
   ngOnInit(): void {
-    this.agentName = this.agent.getName()
   }
 }

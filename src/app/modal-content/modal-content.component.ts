@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-modal-content',
@@ -50,11 +51,27 @@ export class ModalContentComponent implements OnInit {
     country: new FormControl({value: '', disabled: false}, [Validators.required])
   })
 
-  constructor(public activeModal: NgbActiveModal) {
+  constructor(public activeModal: NgbActiveModal, private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    
+    this.fetchAddresses();
+  }
+
+  fetchAddresses() {
+
+    const reqData = {
+      EmployeeId: 'vchada'
+    }
+
+    this.httpService.httpGet('https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod', reqData).subscribe({
+      next: () => {
+        console.log('fetched successfully');
+      },
+      error: () => {
+        console.log('error');
+      }
+    })
   }
 
   editAddress(address: any) {
@@ -80,5 +97,20 @@ export class ModalContentComponent implements OnInit {
       this.addressForm.reset();
       this.selectedAddressToEdit = null;
     }
+  }
+
+  onSubmit() {
+    const reqData = {
+      
+    }
+
+    this.httpService.httpPost('https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod', reqData).subscribe({
+      next: () => {
+        console.log('Updated successfully');
+      },
+      error: () => {
+        console.log('error');
+      }
+    })
   }
 }

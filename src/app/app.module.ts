@@ -12,6 +12,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionRenderer, StateRenderer, TeamPerformanceComponent } from './supervisor/team-performance/team-performance.component';
 import { QueueStatisticsComponent } from './supervisor/queue-statistics/queue-statistics.component';
+import { VerificationInformationModule } from './common-components/verification-information/verification-information.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { QueueStatisticsComponent } from './supervisor/queue-statistics/queue-st
     TeamPerformanceComponent,
     StateRenderer,
     ActionRenderer,
-    QueueStatisticsComponent
+    QueueStatisticsComponent    
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,8 @@ import { QueueStatisticsComponent } from './supervisor/queue-statistics/queue-st
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AgGridModule
+    AgGridModule,
+    VerificationInformationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
