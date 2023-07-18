@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ContactAttribute } from './model/contact-attribute.model';
+import { environment } from 'src/environment/environment';
 
 declare var connect: any;
 
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     connect.core.initCCP(document.getElementById('ccp'), {
       // https://vchada.my.connect.aws/ccp-v2/softphone
-      ccpUrl: 'https://vchada.my.connect.aws/connect/ccp-v2',
+      ccpUrl: environment.ccpUrl,
       region: 'us-east-1',
       loginPopup: true,
       loginPopupAutoClose: true,
