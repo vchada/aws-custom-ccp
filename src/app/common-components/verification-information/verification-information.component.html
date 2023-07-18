@@ -36,7 +36,7 @@
         <select
           class="form-select input-sm"
           [ngModel]="contactAttObj.verfication"
-          (click)="onSelect('verfication', $event)"
+          (change)="onSelect('verfication', $event)"
         >
           <option
             [value]="'yes'"

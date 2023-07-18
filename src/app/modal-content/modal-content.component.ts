@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from '../services/http.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-modal-content',
@@ -11,6 +12,8 @@ import { HttpService } from '../services/http.service';
 export class ModalContentComponent implements OnInit {
   addressDetails: any = [];
   selectedAddressToEdit: any;
+  preferredAddressChange: boolean = false;
+  name: string = '';
 
   addressForm = new FormGroup({
     type: new FormControl(''),
@@ -34,12 +37,12 @@ export class ModalContentComponent implements OnInit {
     ]),
   });
   submitReqData = {
-    EmployeeId: 'vchada',
+    EmployeeId: '',
     homeAddress: {},
     workAddress: {},
     otherAddress: {},
     preferredAddress: '',
-    email: 'test@example.com',
+    email: '',
   };
   
   preferredAddress: string = '';
@@ -57,18 +60,22 @@ export class ModalContentComponent implements OnInit {
   fetchAddresses() {
      
     const reqData: any = {
-      EmployeeId: 'vchada',
+      EmployeeId: this.name,
     }
 
     this.httpService
       .httpGet(
-        'https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod',
+        environment.fetchAddress,
         reqData
       )
       .subscribe({
         next: (res: any) => {
           console.log('fetched successfully');
           if (res) {
+            this.submitReqData.email = res.Email;
+            this.submitReqData.EmployeeId = res.EmployeeId;
+            
+
             this.preferredAddress = res.PreferredAddress;
             if (res.HomeAddress) {
               this.addressDetails.push({
@@ -128,6 +135,19 @@ export class ModalContentComponent implements OnInit {
               });
 
               this.awsAccountId = res.OtherAddress.mappedValidateAddressResponse.AwsAccountId;
+              const other = this.addressDetails.find((item: any) => item.type === 'Other');
+              this.submitReqData.otherAddress = {
+                StreetNumber: other.streetNumber,
+                StreetInfo: other.streetInfo,
+                City: other.city,
+                State: other.state,
+                Country: other.country,
+                preDirectional: '',
+                streetSuffix: '',
+                PostalCode: other.postalCode,
+                AwsAccountId: this.awsAccountId
+              }
+              this.addressForm.patchValue(other);
             }
           }
         },
@@ -144,6 +164,7 @@ export class ModalContentComponent implements OnInit {
 
   onSelect(event: any) {
     this.preferredAddress = event.target.value;
+    this.preferredAddressChange = true;
   }
 
   onClick(type: any) {
@@ -156,11 +177,13 @@ export class ModalContentComponent implements OnInit {
     }
 
     if (type === 'reset') {
+      this.preferredAddressChange = false;
       this.addressForm.patchValue(this.selectedAddressToEdit);
     }
 
     if (type === 'cancel') {
       this.addressForm.reset();
+      this.preferredAddressChange = false;
       this.selectedAddressToEdit = null;
     }
   }
@@ -183,7 +206,7 @@ export class ModalContentComponent implements OnInit {
 
     this.httpService
       .httpPost(
-        'https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod',
+        environment.submitAddress,
         reqPayload
       )
       .subscribe({
@@ -194,6 +217,7 @@ export class ModalContentComponent implements OnInit {
             )
           ] = this.addressForm.value;
           this.selectedAddressToEdit = null;
+          this.preferredAddressChange = false;
           console.log('Updated successfully');
         },
         error: () => {

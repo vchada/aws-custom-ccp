@@ -4,6 +4,34 @@
 </div>
 <div class="modal-body">
     <p *ngIf="!selectedAddressToEdit">Please verify your current location.</p>
+
+    <p>
+      <label for="streetNumber">Preferred Address <span class="text-danger">*</span></label>
+      <select
+          class="form-select"
+          [ngModel]="preferredAddress"
+          (change)="onSelect($event)"
+        >
+          <option
+            value="home"
+            [selected]="preferredAddress === 'home'"
+          >
+            Home
+          </option>
+          <option
+            value="work"
+            [selected]="preferredAddress === 'work'"
+          >
+            Work
+          </option>
+          <option
+            value="other"
+            [selected]="preferredAddress === 'other'"
+          >
+            Other
+          </option>
+        </select>
+    </p>
     
     <div *ngIf="!selectedAddressToEdit">
       <div class="row" *ngFor="let address of addressDetails">
@@ -29,35 +57,6 @@
     <p *ngIf="selectedAddressToEdit">Please fill below details.</p>
 
     <form [formGroup]="addressForm" *ngIf="selectedAddressToEdit">
-
-      <p>
-        <label for="streetNumber">Preference <span class="text-danger">*</span></label>
-        <select
-            class="form-select"
-            [ngModel]="preferredAddress"
-            (click)="onSelect($event)"
-          >
-            <option
-              value="home"
-              [selected]="preferredAddress === 'home'"
-            >
-              Home
-            </option>
-            <option
-              value="work"
-              [selected]="preferredAddress === 'work'"
-            >
-              Work
-            </option>
-            <option
-              value="other"
-              [selected]="preferredAddress === 'other'"
-            >
-              Other
-            </option>
-          </select>
-      </p>
-
       <p>
         <label for="streetNumber">Street Number <span class="text-danger">*</span></label>
         <input type="text" id="streetNumber" name="streetNumber" class="form-control " formControlName="streetNumber">
@@ -91,7 +90,7 @@
 </div>
 <div class="modal-footer">
 
-    <button type="button" *ngIf="!selectedAddressToEdit" class="btn btn-dark" (click)="onClick('yes')">Yes</button>
+    <button type="button" *ngIf="!selectedAddressToEdit && !preferredAddressChange" class="btn btn-dark" (click)="onClick('yes')">Ok</button>
 
     
     <button type="button" *ngIf="selectedAddressToEdit" class="btn btn-outline-dark" (click)="onClick('cancel')">Cancel</button>
@@ -99,4 +98,6 @@
     <button type="button" *ngIf="selectedAddressToEdit" class="btn btn-outline-dark" (click)="onClick('reset')">Reset</button>
 
     <button type="button" *ngIf="selectedAddressToEdit" class="btn btn-dark" (click)="onClick('save')" [disabled]="!addressForm.valid">Save</button>
+
+    <button type="button" *ngIf="preferredAddressChange" class="btn btn-dark" (click)="onClick('save')">Save</button>
 </div>

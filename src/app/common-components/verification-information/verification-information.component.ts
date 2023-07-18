@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ContactAttribute } from 'src/app/model/contact-attribute.model';
 import { HttpService } from 'src/app/services/http.service';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-verification-information',
@@ -28,7 +29,7 @@ export class VerificationInformationComponent implements OnInit {
   onSubmit() {
     const reqData = JSON.stringify(this.contactAttObj)
 
-    this.httpService.httpPost('https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod', reqData).subscribe({
+    this.httpService.httpPost(environment.submitVerficationInfo, reqData).subscribe({
       next: () => {
         console.log('Updated successfully');
       },

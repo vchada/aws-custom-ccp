@@ -13,6 +13,7 @@ declare var connect: any;
 export class AppComponent implements OnInit {
   agent: any;
   isUserAgent: boolean | undefined;
+  username: string = '';
 
   contactAttObj: any = new ContactAttribute();
 
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit {
 
     connect.agent((agent: any) => {
       this.agent = agent;
-
+      this.username = agent.toSnapshot().agentData.configuration.username;
       const permission = agent.getPermissions();
       if (permission) {
         if (permission.length > 2) {
@@ -77,6 +78,6 @@ export class AppComponent implements OnInit {
       ModalContentComponent,
       ngbModalOptions
     );
-    modalRef.componentInstance.name = 'World';
+    modalRef.componentInstance.name = this.username;
   }
 }
