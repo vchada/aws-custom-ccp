@@ -72,83 +72,7 @@ export class ModalContentComponent implements OnInit {
         next: (res: any) => {
           console.log('fetched successfully');
           if (res) {
-            this.submitReqData.email = res.Email;
-            this.submitReqData.EmployeeId = res.EmployeeId;
-            
-
-            this.preferredAddress = res.PreferredAddress;
-            if (res.HomeAddress) {
-              this.addressDetails.push({
-                type: 'Home',
-                streetNumber: res.HomeAddress.StreetNumber,
-                streetInfo: res.HomeAddress.StreetInfo,
-                city: res.HomeAddress.City,
-                postalCode: res.HomeAddress.PostalCode,
-                state: res.HomeAddress.State,
-                country: res.HomeAddress.Country,
-              });
-
-              this.submitReqData.homeAddress = {
-                StreetNumber: res.HomeAddress.StreetNumber,
-                StreetInfo: res.HomeAddress.StreetInfo,
-                City: res.HomeAddress.City,
-                State: res.HomeAddress.State,
-                Country: res.HomeAddress.Country,
-                preDirectional: '',
-                streetSuffix: '',
-                PostalCode: res.HomeAddress.PostalCode
-              }
-            }
-
-            if (res.WorkAddress) {
-              this.addressDetails.push({
-                type: 'Work',
-                streetNumber: res.WorkAddress.StreetNumber,
-                streetInfo: res.WorkAddress.StreetInfo,
-                city: res.WorkAddress.City,
-                postalCode: res.WorkAddress.PostalCode,
-                state: res.WorkAddress.State,
-                country: res.WorkAddress.Country,
-              });
-
-              this.submitReqData.workAddress = {
-                StreetNumber: res.WorkAddress.StreetNumber,
-                StreetInfo: res.WorkAddress.StreetInfo,
-                City: res.WorkAddress.City,
-                State: res.WorkAddress.State,
-                Country: res.WorkAddress.Country,
-                preDirectional: '',
-                streetSuffix: '',
-                PostalCode: res.WorkAddress.PostalCode
-              }
-            }
-
-            if (res.OtherAddress && res.OtherAddress.mappedValidateAddressResponse) {
-              this.addressDetails.push({
-                type: 'Other',
-                streetNumber: res.OtherAddress.mappedValidateAddressResponse.StreetNumber? res.OtherAddress.mappedValidateAddressResponse.StreetNumber: '',
-                streetInfo: res.OtherAddress.mappedValidateAddressResponse.StreetInfo? res.OtherAddress.mappedValidateAddressResponse.StreetInfo: '',
-                city: res.OtherAddress.mappedValidateAddressResponse.City ? res.OtherAddress.mappedValidateAddressResponse.City: '',
-                postalCode: res.OtherAddress.mappedValidateAddressResponse.PostalCode ? res.OtherAddress.mappedValidateAddressResponse.PostalCode: '',
-                state: res.OtherAddress.mappedValidateAddressResponse.State ? res.OtherAddress.mappedValidateAddressResponse.State: '',
-                country: res.OtherAddress.mappedValidateAddressResponse.Country ? res.OtherAddress.mappedValidateAddressResponse.Country: '',
-              });
-
-              this.awsAccountId = res.OtherAddress.mappedValidateAddressResponse.AwsAccountId;
-              const other = this.addressDetails.find((item: any) => item.type === 'Other');
-              this.submitReqData.otherAddress = {
-                StreetNumber: other.streetNumber,
-                StreetInfo: other.streetInfo,
-                City: other.city,
-                State: other.state,
-                Country: other.country,
-                preDirectional: '',
-                streetSuffix: '',
-                PostalCode: other.postalCode,
-                AwsAccountId: this.awsAccountId
-              }
-              this.addressForm.patchValue(other);
-            }
+            this.setData(res);
           }
         },
         error: () => {
@@ -156,6 +80,89 @@ export class ModalContentComponent implements OnInit {
         },
       });
   }
+
+  setData(res: any) {
+    if (res) {
+      this.submitReqData.email = res.Email;
+      this.submitReqData.EmployeeId = res.EmployeeId;
+      
+
+      this.preferredAddress = res.PreferredAddress;
+      if (res.HomeAddress) {
+        this.addressDetails.push({
+          type: 'Home',
+          streetNumber: res.HomeAddress.StreetNumber,
+          streetInfo: res.HomeAddress.StreetInfo,
+          city: res.HomeAddress.City,
+          postalCode: res.HomeAddress.PostalCode,
+          state: res.HomeAddress.State,
+          country: res.HomeAddress.Country,
+        });
+
+        this.submitReqData.homeAddress = {
+          StreetNumber: res.HomeAddress.StreetNumber,
+          StreetInfo: res.HomeAddress.StreetInfo,
+          City: res.HomeAddress.City,
+          State: res.HomeAddress.State,
+          Country: res.HomeAddress.Country,
+          preDirectional: '',
+          streetSuffix: '',
+          PostalCode: res.HomeAddress.PostalCode
+        }
+      }
+
+      if (res.WorkAddress) {
+        this.addressDetails.push({
+          type: 'Work',
+          streetNumber: res.WorkAddress.StreetNumber,
+          streetInfo: res.WorkAddress.StreetInfo,
+          city: res.WorkAddress.City,
+          postalCode: res.WorkAddress.PostalCode,
+          state: res.WorkAddress.State,
+          country: res.WorkAddress.Country,
+        });
+
+        this.submitReqData.workAddress = {
+          StreetNumber: res.WorkAddress.StreetNumber,
+          StreetInfo: res.WorkAddress.StreetInfo,
+          City: res.WorkAddress.City,
+          State: res.WorkAddress.State,
+          Country: res.WorkAddress.Country,
+          preDirectional: '',
+          streetSuffix: '',
+          PostalCode: res.WorkAddress.PostalCode
+        }
+      }
+
+      if (res.OtherAddress && res.OtherAddress.mappedValidateAddressResponse) {
+        this.addressDetails.push({
+          type: 'Other',
+          streetNumber: res.OtherAddress.mappedValidateAddressResponse.StreetNumber? res.OtherAddress.mappedValidateAddressResponse.StreetNumber: '',
+          streetInfo: res.OtherAddress.mappedValidateAddressResponse.StreetInfo? res.OtherAddress.mappedValidateAddressResponse.StreetInfo: '',
+          city: res.OtherAddress.mappedValidateAddressResponse.City ? res.OtherAddress.mappedValidateAddressResponse.City: '',
+          postalCode: res.OtherAddress.mappedValidateAddressResponse.PostalCode ? res.OtherAddress.mappedValidateAddressResponse.PostalCode: '',
+          state: res.OtherAddress.mappedValidateAddressResponse.State ? res.OtherAddress.mappedValidateAddressResponse.State: '',
+          country: res.OtherAddress.mappedValidateAddressResponse.Country ? res.OtherAddress.mappedValidateAddressResponse.Country: '',
+        });
+
+        this.awsAccountId = res.OtherAddress.mappedValidateAddressResponse.AwsAccountId;
+        const other = this.addressDetails.find((item: any) => item.type === 'Other');
+        this.submitReqData.otherAddress = {
+          StreetNumber: other.streetNumber,
+          StreetInfo: other.streetInfo,
+          City: other.city,
+          State: other.state,
+          Country: other.country,
+          preDirectional: '',
+          streetSuffix: '',
+          PostalCode: other.postalCode,
+          AwsAccountId: this.awsAccountId
+        }
+        this.addressForm.patchValue(other);
+      }
+    }
+  }
+
 
   editAddress(address: any) {
     this.selectedAddressToEdit = address;

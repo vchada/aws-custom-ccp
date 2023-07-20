@@ -7,6 +7,7 @@ export class ContactAttribute {
     policyNumber: string = '';
     source: string = '';
 
+    name: string = '';
     FirstName: string = '';
     LastName: string = '';
     suffix: string = '';

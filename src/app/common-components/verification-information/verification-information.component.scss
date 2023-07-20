@@ -19,3 +19,23 @@
     position: relative;
     bottom: 2px;
 }
+
+.verification-select {
+    background-color: white;
+    color: #000; 
+
+    option {
+        background-color: white !important;
+        color: #000 !important; 
+    }
+}
+
+.bg-pass {
+    background-color: green !important;
+    color: white !important;
+}
+
+.bg-failed {
+    background-color: red !important;
+    color: white !important;
+}

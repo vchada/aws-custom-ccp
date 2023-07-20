@@ -3,6 +3,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ContactAttribute } from './model/contact-attribute.model';
 import { environment } from 'src/environment/environment';
+import { CommonDataService } from './services/common-data.service';
 
 declare var connect: any;
 
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
 
   contactAttObj: any = new ContactAttribute();
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private commonDataService: CommonDataService) {}
 
   ngOnInit(): void {
     connect.core.initCCP(document.getElementById('ccp'), {
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
     connect.contact((contact: any) => {
       contact.onEnded(() => {
         this.contactAttObj = new ContactAttribute();
+        this.commonDataService.contactAttributeChange.next(this.contactAttObj);
       });
 
       contact.onConnected(() => {
@@ -49,6 +51,8 @@ export class AppComponent implements OnInit {
             this.contactAttObj[item.name] = item.value;
           });
         }
+
+        this.commonDataService.contactAttributeChange.next(this.contactAttObj);
       });
     });
 

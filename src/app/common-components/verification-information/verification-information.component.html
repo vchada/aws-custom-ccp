@@ -34,21 +34,21 @@
           </svg>
         </label>
         <select
-          class="form-select input-sm"
+          class="form-select input-sm verification-select" [ngClass]="{'bg-pass': contactAttObj.verfication === 'pass', 'bg-failed': contactAttObj.verfication === 'failed'}"
           [ngModel]="contactAttObj.verfication"
           (change)="onSelect('verfication', $event)"
         >
           <option
-            [value]="'yes'"
-            [selected]="contactAttObj.verfication === 'yes'"
+            [value]="'pass'"
+            [selected]="contactAttObj.verfication === 'pass'"
           >
-            Yes
+            Pass
           </option>
           <option
-            [value]="'no'"
-            [selected]="contactAttObj.verfication === 'no'"
+            [value]="'failed'"
+            [selected]="contactAttObj.verfication === 'failed'"
           >
-            No
+            Failed
           </option>
         </select>
       </div>
@@ -165,7 +165,7 @@
 
       <div class="col-4">
         <label for="">Relation</label>
-        <select class="form-select input-sm">
+        <select class="form-select input-sm" [ngModel]="contactAttObj.relation" (change)="onSelect('relation', $event)" >
           <option [selected]="contactAttObj.relation === 'other'">
             Others
           </option>
@@ -174,7 +174,7 @@
 
       <div class="col-4">
         <label for="">Status</label>
-        <select class="form-select input-sm">
+        <select class="form-select input-sm" [ngModel]="contactAttObj.status" (change)="onSelect('status', $event)" >
           <option [selected]="contactAttObj.status === 'active'">Active</option>
           <option [selected]="contactAttObj.status === 'inactive'">
             Inactive
