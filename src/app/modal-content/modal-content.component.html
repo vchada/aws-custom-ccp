@@ -5,20 +5,20 @@
 <div class="modal-body">
     <p *ngIf="!selectedAddressToEdit">Please verify your current location.</p>
 
-    <p>
+    <p *ngIf="!selectedAddressToEdit">
       <label for="streetNumber">Preferred Address <span class="text-danger">*</span></label>
       <select
           class="form-select"
           [ngModel]="preferredAddress"
           (change)="onSelect($event)"
         >
-          <option
+          <option *ngIf="isAddressAvailable('Home')"
             value="home"
             [selected]="preferredAddress === 'home'"
           >
             Home
           </option>
-          <option
+          <option *ngIf="isAddressAvailable('Work')"
             value="work"
             [selected]="preferredAddress === 'work'"
           >
@@ -90,7 +90,7 @@
 </div>
 <div class="modal-footer">
 
-    <button type="button" *ngIf="!selectedAddressToEdit && !preferredAddressChange" class="btn btn-dark" (click)="onClick('yes')">Ok</button>
+  <button type="button" *ngIf="!selectedAddressToEdit && !preferredAddressChange" class="btn btn-dark" (click)="onClick('yes')">Ok</button>
 
     
     <button type="button" *ngIf="selectedAddressToEdit" class="btn btn-outline-dark" (click)="onClick('cancel')">Cancel</button>
@@ -99,5 +99,5 @@
 
     <button type="button" *ngIf="selectedAddressToEdit" class="btn btn-dark" (click)="onClick('save')" [disabled]="!addressForm.valid">Save</button>
 
-    <button type="button" *ngIf="preferredAddressChange" class="btn btn-dark" (click)="onClick('save')">Save</button>
+    <button type="button" *ngIf="preferredAddressChange && !selectedAddressToEdit" class="btn btn-dark" (click)="onClick('save')">Save</button>
 </div>

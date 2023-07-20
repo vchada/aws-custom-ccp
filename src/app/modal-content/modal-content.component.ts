@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from '../services/http.service';
 import { environment } from 'src/environment/environment';
+import { VerificationInformation } from '../model/verification-information.model';
 
 @Component({
   selector: 'app-modal-content',
@@ -36,7 +37,7 @@ export class ModalContentComponent implements OnInit {
       Validators.required,
     ]),
   });
-  submitReqData = {
+  submitReqData: any = {
     EmployeeId: '',
     homeAddress: {},
     workAddress: {},
@@ -71,8 +72,13 @@ export class ModalContentComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           console.log('fetched successfully');
-          if (res) {
+          if (res && !res.error) {
             this.setData(res);
+          } else {
+            const data = new VerificationInformation;
+            data.EmployeeId = this.name;
+            this.setData(data);            
+            this.preferredAddress = 'other';
           }
         },
         error: () => {
@@ -163,6 +169,9 @@ export class ModalContentComponent implements OnInit {
     }
   }
 
+  isAddressAvailable(type: string) {
+    return this.addressDetails.find((item: any) => item.type === type).City;
+  }
 
   editAddress(address: any) {
     this.selectedAddressToEdit = address;
@@ -179,7 +188,7 @@ export class ModalContentComponent implements OnInit {
       this.activeModal.close('Close click');
     }
 
-    if (type === 'save') {
+    if (type === 'save') {      
       this.onSubmit();
     }
 
