@@ -1,8 +1,8 @@
-<div class="modal-header">
+<div class="modal-header" *ngIf="data">
     <h4 class="modal-title">Welcome Back</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
-<div class="modal-body">
+<div class="modal-body" *ngIf="data">
     <p *ngIf="!selectedAddressToEdit">Please verify your current location.</p>
 
     <p *ngIf="!selectedAddressToEdit">
@@ -12,13 +12,13 @@
           [ngModel]="preferredAddress"
           (change)="onSelect($event)"
         >
-          <option *ngIf="isAddressAvailable('Home')"
+          <option *ngIf="submitReqData.homeAddress.City"
             value="home"
             [selected]="preferredAddress === 'home'"
           >
             Home
           </option>
-          <option *ngIf="isAddressAvailable('Work')"
+          <option *ngIf="submitReqData.workAddress.City"
             value="work"
             [selected]="preferredAddress === 'work'"
           >
@@ -88,7 +88,7 @@
 
     </form>
 </div>
-<div class="modal-footer">
+<div class="modal-footer" *ngIf="data">
 
   <button type="button" *ngIf="!selectedAddressToEdit && !preferredAddressChange" class="btn btn-dark" (click)="onClick('yes')">Ok</button>
 

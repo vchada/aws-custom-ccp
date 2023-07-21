@@ -15,6 +15,7 @@ export class ModalContentComponent implements OnInit {
   selectedAddressToEdit: any;
   preferredAddressChange: boolean = false;
   name: string = '';
+  data: any;
 
   addressForm = new FormGroup({
     type: new FormControl(''),
@@ -55,36 +56,13 @@ export class ModalContentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchAddresses();
-  }
-
-  fetchAddresses() {
-     
-    const reqData: any = {
-      EmployeeId: this.name,
+    if(this.data) {
+      if(!this.data.HomeAddress.City && !this.data.WorkAddress.City) {
+        this.preferredAddress = 'other';
+        this.data.PreferredAddress = 'other';
+      }      
+      this.setData(this.data);
     }
-
-    this.httpService
-      .httpGet(
-        environment.fetchAddress,
-        reqData
-      )
-      .subscribe({
-        next: (res: any) => {
-          console.log('fetched successfully');
-          if (res && !res.error) {
-            this.setData(res);
-          } else {
-            const data = new VerificationInformation;
-            data.EmployeeId = this.name;
-            this.setData(data);            
-            this.preferredAddress = 'other';
-          }
-        },
-        error: () => {
-          console.log('error');
-        },
-      });
   }
 
   setData(res: any) {

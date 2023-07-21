@@ -4,6 +4,8 @@ import { ModalContentComponent } from './modal-content/modal-content.component';
 import { ContactAttribute } from './model/contact-attribute.model';
 import { environment } from 'src/environment/environment';
 import { CommonDataService } from './services/common-data.service';
+import { HttpService } from './services/http.service';
+import { VerificationInformation } from './model/verification-information.model';
 
 declare var connect: any;
 
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
 
   contactAttObj: any = new ContactAttribute();
 
-  constructor(private modalService: NgbModal, private commonDataService: CommonDataService) {}
+  constructor(private modalService: NgbModal, private commonDataService: CommonDataService, private httpService: HttpService) {}
 
   ngOnInit(): void {
     connect.core.initCCP(document.getElementById('ccp'), {
@@ -70,11 +72,39 @@ export class AppComponent implements OnInit {
         }
       }
 
-      this.open();
+      this.fetchAddresses();
     });
   }
 
-  open() {
+  fetchAddresses() {
+     
+    const reqData: any = {
+      EmployeeId: this.username,
+    }
+
+    this.httpService
+      .httpGet(
+        environment.fetchAddress,
+        reqData
+      )
+      .subscribe({
+        next: (res: any) => {
+          console.log('fetched successfully');
+          if (res && !res.error) {
+            this.open(res);
+          } else {
+            const data = new VerificationInformation;
+            data.EmployeeId = this.username;
+            this.open(data);            
+          }
+        },
+        error: () => {
+          console.log('error');
+        },
+      });
+  }
+
+  open(res: any) {
     let ngbModalOptions: NgbModalOptions = {
       backdrop: 'static',
       keyboard: false,
@@ -84,5 +114,7 @@ export class AppComponent implements OnInit {
       ngbModalOptions
     );
     modalRef.componentInstance.name = this.username;
+    modalRef.componentInstance.data = res;
+
   }
 }
