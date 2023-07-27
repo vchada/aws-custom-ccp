@@ -1,0 +1,69 @@
+<div class="modal-header" *ngIf="data">
+    <h4 class="modal-title">Edit</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body" *ngIf="data">
+  
+
+    <p >Please fill below details.</p>
+
+    <form [formGroup]="promptLibraryForm" >
+      <p>
+        <label for="item_id">Item ID <span class="text-danger">*</span></label>
+        <input type="text" id="item_id" name="item_id" class="form-control " [disabled]="true" formControlName="item_id">
+      </p>
+        <p>
+          <label for="contact_flow_name">Contact Flow Name <span class="text-danger">*</span></label>
+          <input type="text" id="contact_flow_name" name="contact_flow_name" class="form-control " formControlName="contact_flow_name">
+        </p>
+
+        <p>
+            <label for="language_code">Language Code <span class="text-danger">*</span></label>
+            <input type="text" id="language_code" name="language_code" class="form-control " formControlName="language_code">
+          </p>
+
+          <p>
+            <label for="colection_key">Collection Key <span class="text-danger">*</span></label>
+            <input type="text" id="colection_key" name="colection_key" class="form-control " formControlName="colection_key">
+          </p>
+
+          <p>
+            <label for="item_type">Item Type <span class="text-danger">*</span></label>
+            <input type="text" id="item_type" name="item_type" class="form-control " formControlName="item_type">
+          </p>
+
+          <p>
+            <label for="item_content">Item Content <span class="text-danger">*</span></label>
+            <input type="text" id="item_content" name="item_content" class="form-control " formControlName="item_content">
+          </p>
+
+          <p>
+            <label for="created_user">Created User <span class="text-danger">*</span></label>
+            <input type="text" id="created_user" name="created_user" class="form-control " formControlName="created_user">
+          </p>
+
+          <p>
+            <label for="last_modified_user">Last Modified User <span class="text-danger">*</span></label>
+            <input type="text" id="last_modified_user" name="last_modified_user" class="form-control " formControlName="last_modified_user">
+          </p>
+
+          <p>
+            <label for="created_dt_tm">Created DT_TM <span class="text-danger">*</span></label>
+            <input type="text" id="created_dt_tm" name="created_dt_tm" class="form-control " formControlName="created_dt_tm">
+          </p>
+
+          <p>
+            <label for="last_modified_dt_tm">Last Modified DT_TM <span class="text-danger">*</span></label>
+            <input type="text" id="last_modified_dt_tm" name="last_modified_dt_tm" class="form-control " formControlName="last_modified_dt_tm">
+          </p>
+
+    </form>
+</div>
+<div class="modal-footer" *ngIf="data">
+    
+    <button type="button"  class="btn btn-outline-dark" (click)="onClick('cancel')">Cancel</button>
+    
+    <button type="button"  class="btn btn-outline-dark" (click)="onClick('reset')">Reset</button>
+
+    <button type="button"  class="btn btn-dark" (click)="onClick('save')">Save</button>
+</div>

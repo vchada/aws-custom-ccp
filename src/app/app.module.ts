@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActionRenderer, StateRenderer, TeamPerformanceComponent } from './supervisor/team-performance/team-performance.component';
 import { QueueStatisticsComponent } from './supervisor/queue-statistics/queue-statistics.component';
 import { VerificationInformationModule } from './common-components/verification-information/verification-information.module';
+import { PromptActionRenderer, PromptLibraryComponent } from './common-components/prompt-library/prompt-library.component';
+import { EditPromptLibraryComponent } from './common-components/edit-prompt-library/edit-prompt-library.component';
+import { ConfirmationModalComponent } from './common-components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,11 @@ import { VerificationInformationModule } from './common-components/verification-
     TeamPerformanceComponent,
     StateRenderer,
     ActionRenderer,
-    QueueStatisticsComponent    
+    QueueStatisticsComponent,
+    PromptLibraryComponent,
+    PromptActionRenderer,
+    EditPromptLibraryComponent,
+    ConfirmationModalComponent 
   ],
   imports: [
     BrowserModule,

@@ -1,97 +1,94 @@
-<div class="col-sm-12 col-md-12 col-lg-12" *ngIf="agent">
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-      <div class="accordion-item" >
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button
-            class="accordion-button bg-4a4a4a text-white p-2"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseZero"
-            aria-expanded="false"
-            aria-controls="flush-collapseZero"
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" aria-current="page" [ngClass]="{'active': selectedTab === 'verfication-information'}" href="javascript:void(0)" (click)="selectedTab = 'verfication-information'">Verfication Information</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active': selectedTab === 'prompt-library'}" href="javascript:void(0)" (click)="selectedTab = 'prompt-library'">Prompt Library</a>
+  </li>
+</ul>
+
+<div class="pt-3">
+  <div *ngIf="selectedTab === 'verfication-information'">
+    <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="agent">
+      <div class="accordion accordion-flush" id="accordionFlushExample">
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button
+              class="accordion-button bg-4a4a4a text-white p-2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo"
+              aria-expanded="false"
+              aria-controls="flush-collapseTwo"
+            >
+              Verfication Information
+            </button>
+          </h2>
+          <div
+            id="flush-collapseTwo"
+            class="accordion-collapse collapse show"
+            aria-labelledby="flush-headingTwo"
           >
-            Team Performance
-          </button>
-        </h2>
-        <div
-          id="flush-collapseZero"
-          class="accordion-collapse collapse show"
-          aria-labelledby="flush-headingOne"
-        >
-          <div class="accordion-body">
-            <app-team-performance></app-team-performance>
+            <div class="accordion-body">
+              <app-verification-information
+                [agent]="agent"
+              ></app-verification-information>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingOne">
-          <button
-            class="accordion-button bg-4a4a4a text-white p-2"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseOne"
-            aria-expanded="false"
-            aria-controls="flush-collapseOne"
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button
+              class="accordion-button bg-4a4a4a text-white p-2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+            >
+              Alert Center (Active Alert)
+            </button>
+          </h2>
+          <div
+            id="flush-collapseOne"
+            class="accordion-collapse collapse show"
+            aria-labelledby="flush-headingOne"
           >
-            Alert Center (Active Alert)
-          </button>
-        </h2>
-        <div
-          id="flush-collapseOne"
-          class="accordion-collapse collapse show"
-          aria-labelledby="flush-headingOne"
-        >
-          <div class="accordion-body">
-            <div class="text-success">12x message 02 same SG 01</div>
+            <div class="accordion-body">
+              <div class="text-success">12x message 02 same SG 01</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingTwo">
-          <button
-            class="accordion-button bg-4a4a4a text-white p-2"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseTwo"
-            aria-expanded="false"
-            aria-controls="flush-collapseTwo"
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingThree">
+            <button
+              class="accordion-button bg-4a4a4a text-white p-2"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseThree"
+              aria-expanded="false"
+              aria-controls="flush-collapseThree"
+            >
+              Click to connect
+            </button>
+          </h2>
+          <div
+            id="flush-collapseThree"
+            class="accordion-collapse collapse show"
+            aria-labelledby="flush-headingThree"
           >
-            Verfication Information
-          </button>
-        </h2>
-        <div
-          id="flush-collapseTwo"
-          class="accordion-collapse collapse show"
-          aria-labelledby="flush-headingTwo"
-        >
-        <div class="accordion-body">
-          <app-verification-information [agent]="agent"></app-verification-information>
-        </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-headingThree">
-          <button
-            class="accordion-button bg-4a4a4a text-white p-2"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseThree"
-            aria-expanded="false"
-            aria-controls="flush-collapseThree"
-          >
-            Queue Statistics
-          </button>
-        </h2>
-        <div
-          id="flush-collapseThree"
-          class="accordion-collapse collapse show"
-          aria-labelledby="flush-headingThree"
-        >
-          <div class="accordion-body">
-            <app-queue-statistics></app-queue-statistics>
+            <div class="accordion-body">
+              <div class="text-success">Successfully Connected</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <div *ngIf="selectedTab === 'prompt-library'">
+    <app-prompt-library></app-prompt-library>
+  </div>
+</div>
+

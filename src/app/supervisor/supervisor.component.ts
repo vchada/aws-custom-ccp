@@ -9,6 +9,7 @@ export class SupervisorComponent implements OnInit {
 
   @Input() agent: any;
   @Input() contactAttObj: any;
+  selectedTab = 'verfication-information';
   
   constructor() {}  
 
