@@ -16,6 +16,7 @@ import { VerificationInformationModule } from './common-components/verification-
 import { PromptActionRenderer, PromptLibraryComponent } from './common-components/prompt-library/prompt-library.component';
 import { EditPromptLibraryComponent } from './common-components/edit-prompt-library/edit-prompt-library.component';
 import { ConfirmationModalComponent } from './common-components/confirmation-modal/confirmation-modal.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ConfirmationModalComponent } from './common-components/confirmation-mod
     ReactiveFormsModule,
     HttpClientModule,
     AgGridModule,
-    VerificationInformationModule
+    VerificationInformationModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   providers: [],
   bootstrap: [AppComponent]

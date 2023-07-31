@@ -13,6 +13,7 @@ import {
 import { EditPromptLibraryComponent } from '../edit-prompt-library/edit-prompt-library.component';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { environment } from 'src/environment/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-prompt-library',
@@ -48,22 +49,6 @@ export class PromptLibraryComponent implements OnInit {
       field: 'item_content',
     },
     {
-      headerName: 'Created User',
-      field: 'created_user',
-    },
-    {
-      headerName: 'Last Modified User',
-      field: 'last_modified_user',
-    },
-    {
-      headerName: 'Created DT_TM',
-      field: 'created_dt_tm',
-    },
-    {
-      headerName: 'Last Modified DT_TM',
-      field: 'last_modified_dt_tm',
-    },
-    {
       headerName: 'Action',
       field: 'action',
       width: 100,
@@ -93,35 +78,34 @@ export class PromptLibraryComponent implements OnInit {
   public paginationPageSize = 10;
   gridApi: any;
   public gridOptions: GridOptions;
-  completeData = [];
+  completeData: any[] = [];
   filterText: string = '';
 
   public sideBar: SideBarDef | string | string[] | boolean | null = 'columns';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private spinner: NgxSpinnerService) {
     this.gridOptions = {
       suppressCellFocus: true,
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onGridReady(params: GridReadyEvent<any>) {
+    this.spinner.show();
     this.http
       .get<any[]>(environment.getPostPromptLibrary)
       .subscribe((data: any) => {
-        data = [
+        
+        let rowData = [
           {
             item_id: '123456789',
             contact_flow_name: 'Test 1',
             language_code: 'EN_US',
             colection_key: 'abc123',
             item_type: 'Product',
-            item_content: 'test content',
-            created_user: 'created user',
-            last_modified_user: 'mod user',
-            created_dt_tm: '12/12/2022',
-            last_modified_dt_tm: '11/11/2023',
+            item_content: 'test content'
           },
           
           {
@@ -130,23 +114,24 @@ export class PromptLibraryComponent implements OnInit {
             language_code: 'EN_US',
             colection_key: 'abc123',
             item_type: 'Product',
-            item_content: 'test content',
-            created_user: 'created user',
-            last_modified_user: 'mod user',
-            created_dt_tm: '12/12/2022',
-            last_modified_dt_tm: '11/11/2023',
+            item_content: 'test content'
           }
         ];
+        if(data && data.Items && data.Items.length > 0) {
+          rowData = data.Items;
+        }
 
-        this.completeData = data;
+        this.completeData = rowData;
 
         this.rowData = this.completeData;
+        this.spinner.hide();
       });
 
     // params.columnApi.autoSizeAllColumns();
     this.gridApi = params.api;
     this.agGrid.api.sizeColumnsToFit();
     this.agGrid.api.setDomLayout('autoHeight');
+
   }
 
   
@@ -204,7 +189,6 @@ export class PromptActionRenderer implements ICellRendererAngularComp {
   agInit(params: ICellRendererParams): void {
     this.value = params.value;
     this.state = params.data;
-    debugger;
   }
 
   refresh(params: ICellRendererParams) {

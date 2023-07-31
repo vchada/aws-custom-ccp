@@ -28,19 +28,7 @@ export class EditPromptLibraryComponent implements OnInit {
     ]),
     item_content: new FormControl({ value: '', disabled: false }, [
       Validators.required,
-    ]),
-    created_user: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-    last_modified_user: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-    created_dt_tm: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
-    last_modified_dt_tm: new FormControl({ value: '', disabled: false }, [
-      Validators.required,
-    ]),
+    ])
   });
 
   constructor(
@@ -70,7 +58,7 @@ export class EditPromptLibraryComponent implements OnInit {
 
   onSubmit() {
     this.httpService
-      .httpPost(environment.getPostPromptLibrary, this.promptLibraryForm.value)
+      .httpPost(environment.contactflowcontent, this.promptLibraryForm.value)
       .subscribe((data: any) => {
         console.log('response from API')
       })
