@@ -8,15 +8,15 @@ export class HttpService {
 
   headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Authorization', 'Bearer your_token'); // Replace with your actual authorization token
+      .set('Access-Control-Allow-Origin', '*');
 
   constructor(private http: HttpClient) {}
 
   httpPost(url: string, body: any) {    
-    return this.http.post(url, body, { headers: this.headers })
+    return this.http.post(url, body)
   }
 
   httpGet(url: string, body?: any) {    
-    return this.http.get(url, { headers: this.headers, params: body })
+    return this.http.get(url, { params: body })
   }
 }

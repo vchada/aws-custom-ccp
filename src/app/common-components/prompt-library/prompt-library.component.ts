@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import {
@@ -11,6 +10,7 @@ import {
 import { environment } from 'src/environment/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PromptActionRendererComponent } from '../prompt-action-renderer/prompt-action-renderer.component';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-prompt-library',
@@ -80,7 +80,7 @@ export class PromptLibraryComponent implements OnInit {
 
   public sideBar: SideBarDef | string | string[] | boolean | null = 'columns';
 
-  constructor(private http: HttpClient, private spinner: NgxSpinnerService) {
+  constructor(private httpService: HttpService, private spinner: NgxSpinnerService) {
     this.gridOptions = {
       suppressCellFocus: true,
     };
@@ -91,9 +91,10 @@ export class PromptLibraryComponent implements OnInit {
 
   onGridReady(params: GridReadyEvent<any>) {
     this.spinner.show();
-    this.http
-      .get<any[]>(environment.getPostPromptLibrary)
-      .subscribe((data: any) => {
+    this.httpService
+      .httpGet(environment.getPostPromptLibrary)
+      .subscribe({
+        next: (data: any) => {
         
         let rowData = [
           {
@@ -122,7 +123,11 @@ export class PromptLibraryComponent implements OnInit {
 
         this.rowData = this.completeData;
         this.spinner.hide();
-      });
+      },
+    error: () => {
+      
+      this.spinner.hide();
+    }});
 
     // params.columnApi.autoSizeAllColumns();
     this.gridApi = params.api;
