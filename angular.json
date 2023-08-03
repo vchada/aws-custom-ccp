@@ -73,12 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "aws-custom-ccp:build:production",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "aws-custom-ccp:build:production"
             },
             "development": {
-              "browserTarget": "aws-custom-ccp:build:development",
-              "proxyConfig": "proxy.conf.json"
+              "browserTarget": "aws-custom-ccp:build:development"
             }
           },
           "defaultConfiguration": "development"

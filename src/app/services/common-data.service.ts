@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class CommonDataService {
 
     contactAttributeChange = new Subject();
+    userName: string | undefined;
 
     constructor() {}
 

@@ -40,6 +40,7 @@ export class PromptActionRendererComponent implements ICellRendererAngularComp {
   openEditModal() {
     const modalRef = this.modalService.open(EditPromptLibraryComponent);
     modalRef.componentInstance.data = this.state;
+    modalRef.componentInstance.type = 'edit';
   }
 
   openDeleteModal() {

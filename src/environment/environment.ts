@@ -4,6 +4,7 @@ export const environment = {
     fetchAddress: 'https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod',
     submitAddress: 'https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod',
     submitVerficationInfo: 'https://vah6cknx1j.execute-api.us-east-1.amazonaws.com/prod',
-    getPostPromptLibrary: 'https://lqcq2aphv2.execute-api.us-east-1.amazonaws.com/v2/contactflowcontent/ERSSelfServe',
-    contactflowcontent: 'https://www.ag-grid.com/example-assets/olympic-winners.json'
+    fetchPromptLibrary: 'https://www.ag-grid.com/example-assets/olympic-winners.json',
+    createPromptLibrary: 'https://www.ag-grid.com/example-assets/olympic-winners.json',
+    updatePromptLibrary: 'https://www.ag-grid.com/example-assets/olympic-winners.json'
 };

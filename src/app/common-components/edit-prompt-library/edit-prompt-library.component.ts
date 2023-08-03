@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonDataService } from 'src/app/services/common-data.service';
 import { HttpService } from 'src/app/services/http.service';
 import { environment } from 'src/environment/environment';
 
@@ -11,6 +12,7 @@ import { environment } from 'src/environment/environment';
 })
 export class EditPromptLibraryComponent implements OnInit {
   data: any | undefined;
+  type: string| undefined;
 
   promptLibraryForm = new FormGroup({
     item_id: new FormControl(''),
@@ -33,7 +35,8 @@ export class EditPromptLibraryComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private commonDataService: CommonDataService
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +50,11 @@ export class EditPromptLibraryComponent implements OnInit {
     }
 
     if (type === 'reset') {
-      this.promptLibraryForm.patchValue(this.data);
+      if(this.type === 'edit') {
+        this.promptLibraryForm.patchValue(this.data);
+      } else {
+        this.promptLibraryForm.reset();
+      }
     }
 
     if (type === 'cancel') {
@@ -57,10 +64,35 @@ export class EditPromptLibraryComponent implements OnInit {
   }
 
   onSubmit() {
-    this.httpService
-      .httpPost(environment.contactflowcontent, this.promptLibraryForm.value)
-      .subscribe((data: any) => {
-        console.log('response from API')
+
+    const reqData = {
+      languageCode: this.promptLibraryForm.value.language_code,
+      contactFlowName: this.promptLibraryForm.value.contact_flow_name,
+      itemId: this.promptLibraryForm.value.item_id,
+      collectionKey: this.promptLibraryForm.value.colection_key,
+      itemContent: this.promptLibraryForm.value.item_content,
+      itemType: this.promptLibraryForm.value.item_type,
+      createdUser: this.commonDataService.userName,
+    }
+
+    if(this.type === 'edit') {
+      this.httpService.httpPut(environment.updatePromptLibrary, reqData).subscribe({
+        next: (data: any) => {
+          this.activeModal.close();
+        },
+        error: (err) => {
+          alert(err);
+        }
       })
+    } else {
+      this.httpService.httpPost(environment.createPromptLibrary, reqData).subscribe({
+        next: (data: any) => {
+          this.activeModal.close();
+        },
+        error: (err) => {
+          alert(err);
+        }
+      })
+    }
   }
 }

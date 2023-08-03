@@ -1,5 +1,5 @@
 <div class="modal-header" *ngIf="data">
-    <h4 class="modal-title">Edit</h4>
+    <h4 class="modal-title">{{type === 'edit' ? 'Edit': 'Create'}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body" *ngIf="data">
@@ -8,10 +8,10 @@
     <p >Please fill below details.</p>
 
     <form [formGroup]="promptLibraryForm" >
-      <p>
-        <label for="item_id">Item ID <span class="text-danger">*</span></label>
-        <input type="text" id="item_id" name="item_id" class="form-control " [disabled]="true" formControlName="item_id">
-      </p>
+        <p *ngIf="type === 'edit'">
+          <label for="item_id">Item ID <span class="text-danger">*</span></label>
+          <input type="text" id="item_id" name="item_id" class="form-control " [readonly]="true" [disabled]="true" formControlName="item_id">
+        </p>
         <p>
           <label for="contact_flow_name">Contact Flow Name <span class="text-danger">*</span></label>
           <input type="text" id="contact_flow_name" name="contact_flow_name" class="form-control " formControlName="contact_flow_name">

@@ -11,6 +11,9 @@ import { environment } from 'src/environment/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PromptActionRendererComponent } from '../prompt-action-renderer/prompt-action-renderer.component';
 import { HttpService } from 'src/app/services/http.service';
+import { HttpClient } from '@angular/common/http';
+import { EditPromptLibraryComponent } from '../edit-prompt-library/edit-prompt-library.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-prompt-library',
@@ -80,7 +83,7 @@ export class PromptLibraryComponent implements OnInit {
 
   public sideBar: SideBarDef | string | string[] | boolean | null = 'columns';
 
-  constructor(private httpService: HttpService, private spinner: NgxSpinnerService) {
+  constructor(private httpService: HttpService, private spinner: NgxSpinnerService, private modalService: NgbModal) {
     this.gridOptions = {
       suppressCellFocus: true,
     };
@@ -92,7 +95,7 @@ export class PromptLibraryComponent implements OnInit {
   onGridReady(params: GridReadyEvent<any>) {
     this.spinner.show();
     this.httpService
-      .httpGet(environment.getPostPromptLibrary)
+      .httpGet(environment.fetchPromptLibrary)
       .subscribe({
         next: (data: any) => {
         
@@ -139,6 +142,12 @@ export class PromptLibraryComponent implements OnInit {
   
   onFilterTextBoxChanged() {
     this.gridApi.setQuickFilter(this.filterText);
+  }
+
+  create() {
+    const modalRef = this.modalService.open(EditPromptLibraryComponent);
+    modalRef.componentInstance.data = {};
+    modalRef.componentInstance.type = 'create';
   }
 }
 

@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
     connect.agent((agent: any) => {
       this.agent = agent;
       this.username = agent.toSnapshot().agentData.configuration.username;
+      this.commonDataService.userName = this.username;
       const permission = agent.getPermissions();
       if (permission) {
         if (permission.length > 2) {
