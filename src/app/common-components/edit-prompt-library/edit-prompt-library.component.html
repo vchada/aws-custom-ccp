@@ -8,9 +8,9 @@
     <p >Please fill below details.</p>
 
     <form [formGroup]="promptLibraryForm" >
-        <p *ngIf="type === 'edit'">
+        <p>
           <label for="item_id">Item ID <span class="text-danger">*</span></label>
-          <input type="text" id="item_id" name="item_id" class="form-control " [readonly]="true" [disabled]="true" formControlName="item_id">
+          <input type="text" id="item_id" name="item_id" class="form-control " [readonly]="type === 'edit'? true: false" [disabled]="type === 'edit'? true: false" formControlName="item_id">
         </p>
         <p>
           <label for="contact_flow_name">Contact Flow Name <span class="text-danger">*</span></label>

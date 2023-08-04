@@ -81,7 +81,7 @@ export class EditPromptLibraryComponent implements OnInit {
           this.activeModal.close();
         },
         error: (err) => {
-          alert(err);
+          console.log(err);
         }
       })
     } else {
@@ -90,7 +90,7 @@ export class EditPromptLibraryComponent implements OnInit {
           this.activeModal.close();
         },
         error: (err) => {
-          alert(err);
+          console.log(err);
         }
       })
     }
