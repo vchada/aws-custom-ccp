@@ -4,6 +4,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 import { EditPromptLibraryComponent } from '../edit-prompt-library/edit-prompt-library.component';
+import { CommonDataService } from 'src/app/services/common-data.service';
 
 @Component({
   selector: 'app-prompt-action-renderer',
@@ -13,12 +14,14 @@ import { EditPromptLibraryComponent } from '../edit-prompt-library/edit-prompt-l
 export class PromptActionRendererComponent implements ICellRendererAngularComp {
   public value: any;
   state = '';
+  params: any;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private commonDataService: CommonDataService) {}
 
   agInit(params: ICellRendererParams): void {
     this.value = params.value;
     this.state = params.data;
+    this.params = params;
   }
 
   refresh(params: ICellRendererParams) {
@@ -41,6 +44,17 @@ export class PromptActionRendererComponent implements ICellRendererAngularComp {
     const modalRef = this.modalService.open(EditPromptLibraryComponent);
     modalRef.componentInstance.data = this.state;
     modalRef.componentInstance.type = 'edit';
+
+    modalRef.result.then(
+      (result) => {
+        console.log('Modal closed with result:', result);
+        this.commonDataService.editPromptLibrary.next(null);
+      },
+      (reason) => {
+        console.log('Modal dismissed with reason:', reason);
+        this.commonDataService.editPromptLibrary.next(null);
+      }
+    );
   }
 
   openDeleteModal() {

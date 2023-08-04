@@ -14,6 +14,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { HttpClient } from '@angular/common/http';
 import { EditPromptLibraryComponent } from '../edit-prompt-library/edit-prompt-library.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonDataService } from 'src/app/services/common-data.service';
 
 @Component({
   selector: 'app-prompt-library',
@@ -83,13 +84,16 @@ export class PromptLibraryComponent implements OnInit {
 
   public sideBar: SideBarDef | string | string[] | boolean | null = 'columns';
 
-  constructor(private httpService: HttpService, private spinner: NgxSpinnerService, private modalService: NgbModal) {
+  constructor(private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService, private modalService: NgbModal) {
     this.gridOptions = {
       suppressCellFocus: true,
     };
   }
 
   ngOnInit(): void {
+    this.commonDataService.editPromptLibrary.subscribe(() => {
+      this.refreshData();
+    })
   }
 
   onGridReady(params: GridReadyEvent<any>) {
@@ -148,6 +152,44 @@ export class PromptLibraryComponent implements OnInit {
     const modalRef = this.modalService.open(EditPromptLibraryComponent);
     modalRef.componentInstance.data = {};
     modalRef.componentInstance.type = 'create';
+
+    modalRef.result.then(
+      (result) => {
+        console.log('Modal closed with result:', result);
+        this.refreshData();
+      },
+      (reason) => {
+        console.log('Modal dismissed with reason:', reason);
+        this.refreshData();
+      }
+    );
+  }
+
+
+  refreshData() {
+    this.spinner.show();
+    this.httpService
+      .httpGet(environment.fetchPromptLibrary)
+      .subscribe({
+        next: (data: any) => {
+        
+        let rowData = [];
+        if(data && data.Items && data.Items.length > 0) {
+          rowData = data.Items;
+        }
+
+        this.completeData = rowData;
+
+        this.rowData = this.completeData;
+        
+        this.gridApi.setRowData(this.rowData);
+        this.gridApi.refreshCells();
+        this.spinner.hide();
+      },
+    error: () => {
+      
+      this.spinner.hide();
+    }});
   }
 }
 
