@@ -65,14 +65,19 @@ export class EditPromptLibraryComponent implements OnInit {
 
   onSubmit() {
 
-    const reqData = {
+    let reqData: any = {
       languageCode: this.promptLibraryForm.value.language_code,
       contactFlowName: this.promptLibraryForm.value.contact_flow_name,
       itemId: this.promptLibraryForm.value.item_id,
       collectionKey: this.promptLibraryForm.value.colection_key,
       itemContent: this.promptLibraryForm.value.item_content,
-      itemType: this.promptLibraryForm.value.item_type,
-      createdUser: this.commonDataService.userName,
+      itemType: this.promptLibraryForm.value.item_type
+    }
+
+    if(this.type === 'edit') {
+      reqData['modifiedUser'] = this.commonDataService.userName;
+    } else {      
+      reqData['createdUser'] = this.commonDataService.userName;
     }
 
     if(this.type === 'edit') {
