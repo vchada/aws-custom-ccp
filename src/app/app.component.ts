@@ -6,6 +6,7 @@ import { environment } from 'src/environment/environment';
 import { CommonDataService } from './services/common-data.service';
 import { HttpService } from './services/http.service';
 import { VerificationInformation } from './model/verification-information.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var connect: any;
 
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
 
   contactAttObj: any = new ContactAttribute();
 
-  constructor(private modalService: NgbModal, private commonDataService: CommonDataService, private httpService: HttpService) {}
+  constructor(private modalService: NgbModal, private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     connect.core.initCCP(document.getElementById('ccp'), {
@@ -78,7 +79,7 @@ export class AppComponent implements OnInit {
   }
 
   fetchAddresses() {
-     
+    this.spinner.show();
     const reqData: any = {
       EmployeeId: this.username,
     }
@@ -98,9 +99,11 @@ export class AppComponent implements OnInit {
             data.EmployeeId = this.username;
             this.open(data);            
           }
+          this.spinner.hide();
         },
         error: () => {
           console.log('error');
+          this.spinner.hide();
         },
       });
   }

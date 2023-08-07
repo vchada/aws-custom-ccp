@@ -17,6 +17,7 @@ import { ConfirmationModalComponent } from './common-components/confirmation-mod
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { PromptActionRendererComponent } from './common-components/prompt-action-renderer/prompt-action-renderer.component';
 import { CorsInterceptor } from './services/cors.interceptor';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CorsInterceptor } from './services/cors.interceptor';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
@@ -38,7 +40,7 @@ import { CorsInterceptor } from './services/cors.interceptor';
     HttpClientModule,
     AgGridModule,
     VerificationInformationModule,
-    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
+    NgxSpinnerModule
   ],
   providers: [
     {

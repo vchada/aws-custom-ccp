@@ -34,7 +34,6 @@
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",              
               "node_modules/ag-grid-community/styles/ag-grid.css",
               "node_modules/ag-grid-community/styles/ag-theme-alpine.css",
-              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -56,18 +55,93 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [                
+                {
+                  "replace": "src/environment/environment.ts",                  
+                  "with": "src/environment/environment.prod.ts"
+                }              
+              ]
+            },
+            "uat": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [                
+                {
+                  "replace": "src/environment/environment.ts",                  
+                  "with": "src/environment/environment.uat.ts"
+                }              
+              ]
+            },
+            "integration": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [                
+                {
+                  "replace": "src/environment/environment.ts",                  
+                  "with": "src/environment/environment.integration.ts"
+                }              
+              ]
             },
             "development": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [                
+                {
+                  "replace": "src/environment/environment.ts",                  
+                  "with": "src/environment/environment.development.ts"
+                }              
+              ]
+            },
+            "local": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [                
+                {
+                  "replace": "src/environment/environment.ts",                  
+                  "with": "src/environment/environment.ts"
+                }              
+              ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "local"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -75,11 +149,20 @@
             "production": {
               "browserTarget": "aws-custom-ccp:build:production"
             },
+            "uat": {
+              "browserTarget": "aws-custom-ccp:build:uat"
+            },
+            "integration": {
+              "browserTarget": "aws-custom-ccp:build:integration"
+            },
             "development": {
               "browserTarget": "aws-custom-ccp:build:development"
+            },
+            "local": {
+              "browserTarget": "aws-custom-ccp:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
