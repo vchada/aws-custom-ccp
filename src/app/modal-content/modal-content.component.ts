@@ -49,6 +49,9 @@ export class ModalContentComponent implements OnInit {
   
   preferredAddress: string = '';
   awsAccountId: string = '';
+  
+  showError = false;
+  errorMsg = '';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -215,7 +218,9 @@ export class ModalContentComponent implements OnInit {
           console.log('Updated successfully');
         },
         error: () => {
-          console.log('error');
+          console.log('error');          
+          this.showError = true;
+          this.errorMsg = 'Something went wrong. Please try again.';
         },
       });
   }

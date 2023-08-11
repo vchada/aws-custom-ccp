@@ -22,7 +22,7 @@ export class EditPromptLibraryComponent implements OnInit {
     language_code: new FormControl({ value: '', disabled: false }, [
       Validators.required,
     ]),
-    colection_key: new FormControl({ value: '', disabled: false }, [
+    collection_key: new FormControl({ value: '', disabled: false }, [
       Validators.required,
     ]),
     item_type: new FormControl({ value: '', disabled: false }, [
@@ -32,6 +32,9 @@ export class EditPromptLibraryComponent implements OnInit {
       Validators.required,
     ])
   });
+
+  showError = false;
+  errorMsg = '';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -63,41 +66,55 @@ export class EditPromptLibraryComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): any {
 
-    let reqData: any = {
-      languageCode: this.promptLibraryForm.value.language_code,
-      contactFlowName: this.promptLibraryForm.value.contact_flow_name,
-      itemId: this.promptLibraryForm.value.item_id,
-      collectionKey: this.promptLibraryForm.value.colection_key,
-      itemContent: this.promptLibraryForm.value.item_content,
-      itemType: this.promptLibraryForm.value.item_type
-    }
-
-    if(this.type === 'edit') {
-      reqData['modifiedUser'] = this.commonDataService.userName;
-    } else {      
-      reqData['createdUser'] = this.commonDataService.userName;
-    }
-
-    if(this.type === 'edit') {
-      this.httpService.httpPut(environment.updatePromptLibrary, reqData).subscribe({
-        next: (data: any) => {
-          this.activeModal.close();
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      })
+    if(this.promptLibraryForm.dirty && this.promptLibraryForm.invalid && this.promptLibraryForm.touched) {
+      this.showError = true;
+      this.errorMsg = 'Please fill all require fields.';
+      return '';
     } else {
-      this.httpService.httpPost(environment.createPromptLibrary, reqData).subscribe({
-        next: (data: any) => {
-          this.activeModal.close();
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      })
+      this.showError = false;
+    }
+
+    if(this.promptLibraryForm.valid) {
+      let reqData: any = {
+        languageCode: this.promptLibraryForm.value.language_code,
+        contactFlowName: this.promptLibraryForm.value.contact_flow_name,
+        itemId: this.promptLibraryForm.value.item_id,
+        collectionKey: this.promptLibraryForm.value.collection_key,
+        itemContent: this.promptLibraryForm.value.item_content,
+        itemType: this.promptLibraryForm.value.item_type
+      }
+
+      if(this.type === 'edit') {
+        reqData['modifiedUser'] = this.commonDataService.userName;
+      } else {      
+        reqData['createdUser'] = this.commonDataService.userName;
+      }
+
+      if(this.type === 'edit') {
+        this.httpService.httpPut(environment.updatePromptLibrary, reqData).subscribe({
+          next: (data: any) => {
+            this.activeModal.close();
+          },
+          error: (err) => {
+            console.log(err);
+            this.showError = true;
+            this.errorMsg = 'Something went wrong. Please try again.';
+          }
+        })
+      } else {
+        this.httpService.httpPost(environment.createPromptLibrary, reqData).subscribe({
+          next: (data: any) => {
+            this.activeModal.close();
+          },
+          error: (err) => {
+            console.log(err);
+            this.showError = true;
+            this.errorMsg = 'Something went wrong. Please try again.';
+          }
+        })
+      }
     }
   }
 }

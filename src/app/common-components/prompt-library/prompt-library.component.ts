@@ -39,7 +39,7 @@ export class PromptLibraryComponent implements OnInit {
     },
     {
       headerName: 'Collection Key',
-      field: 'colection_key',
+      field: 'collection_key',
     },
     {
       headerName: 'Item Type',
@@ -84,7 +84,7 @@ export class PromptLibraryComponent implements OnInit {
 
   public sideBar: SideBarDef | string | string[] | boolean | null = 'columns';
 
-  constructor(private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService, private modalService: NgbModal) {
+  constructor(private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService, private modalService: NgbModal, private http: HttpClient) {
     this.gridOptions = {
       suppressCellFocus: true,
     };
@@ -97,49 +97,10 @@ export class PromptLibraryComponent implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent<any>) {
-    this.spinner.show();
-    this.httpService
-      .httpGet(environment.fetchPromptLibrary)
-      .subscribe({
-        next: (data: any) => {
-        
-        let rowData = [
-          {
-            item_id: '123456789',
-            contact_flow_name: 'Test 1',
-            language_code: 'EN_US',
-            colection_key: 'abc123',
-            item_type: 'Product',
-            item_content: 'test content'
-          },
-          
-          {
-            item_id: '987456321',
-            contact_flow_name: 'Test 1',
-            language_code: 'EN_US',
-            colection_key: 'abc123',
-            item_type: 'Product',
-            item_content: 'test content'
-          }
-        ];
-        if(data && data.Items && data.Items.length > 0) {
-          rowData = data.Items;
-        }
 
-        this.completeData = rowData;
-
-        this.rowData = this.completeData;
-        this.spinner.hide();
-      },
-    error: () => {
-      
-      this.spinner.hide();
-    }});
-
-    // params.columnApi.autoSizeAllColumns();
+    
     this.gridApi = params.api;
-    this.agGrid.api.sizeColumnsToFit();
-    this.agGrid.api.setDomLayout('autoHeight');
+    this.refreshData();
 
   }
 
@@ -165,14 +126,38 @@ export class PromptLibraryComponent implements OnInit {
     );
   }
 
+  refresh() {
+
+    this.refreshData();
+  }
+
 
   refreshData() {
     this.spinner.show();
+    this.filterText = '';
+    this.gridApi.setQuickFilter(this.filterText);
     this.httpService
       .httpGet(environment.fetchPromptLibrary)
       .subscribe({
         next: (data: any) => {
         
+          // {
+          //   item_id: '123456789',
+          //   contact_flow_name: 'Test 1',
+          //   language_code: 'EN_US',
+          //   collection_key: 'abc123',
+          //   item_type: 'Product',
+          //   item_content: 'test content'
+          // },
+          
+          // {
+          //   item_id: '987456321',
+          //   contact_flow_name: 'Test 1',
+          //   language_code: 'EN_US',
+          //   collection_key: 'abc123',
+          //   item_type: 'Product',
+          //   item_content: 'test content'
+          // }
         let rowData = [];
         if(data && data.Items && data.Items.length > 0) {
           rowData = data.Items;
@@ -181,7 +166,6 @@ export class PromptLibraryComponent implements OnInit {
         this.completeData = rowData;
 
         this.rowData = this.completeData;
-        
         this.gridApi.setRowData(this.rowData);
         this.gridApi.refreshCells();
         this.spinner.hide();
@@ -190,6 +174,10 @@ export class PromptLibraryComponent implements OnInit {
       
       this.spinner.hide();
     }});
+
+    // params.columnApi.autoSizeAllColumns();
+    this.agGrid.api.sizeColumnsToFit();
+    this.agGrid.api.setDomLayout('autoHeight');
   }
 }
 

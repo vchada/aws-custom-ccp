@@ -6,6 +6,8 @@
   
 
     <p >Please fill below details.</p>
+    
+    <p *ngIf="showError" class="text-danger">{{errorMsg}}</p>
 
     <form [formGroup]="promptLibraryForm" >
         <p>
@@ -23,8 +25,8 @@
           </p>
 
           <p>
-            <label for="colection_key">Collection Key <span class="text-danger">*</span></label>
-            <input type="text" id="colection_key" name="colection_key" class="form-control " formControlName="colection_key">
+            <label for="collection_key">Collection Key <span class="text-danger">*</span></label>
+            <input type="text" id="collection_key" name="collection_key" class="form-control " [readonly]="type === 'edit'? true: false" [disabled]="type === 'edit'? true: false"  formControlName="collection_key">
           </p>
 
           <p>

@@ -55,6 +55,8 @@
     
 
     <p *ngIf="selectedAddressToEdit">Please fill below details.</p>
+    
+    <p *ngIf="showError && selectedAddressToEdit" class="text-danger">{{errorMsg}}</p>
 
     <form [formGroup]="addressForm" *ngIf="selectedAddressToEdit">
       <p>
