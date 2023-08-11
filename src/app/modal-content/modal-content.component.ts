@@ -4,6 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpService } from '../services/http.service';
 import { environment } from 'src/environment/environment';
 import { VerificationInformation } from '../model/verification-information.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-modal-content',
@@ -55,7 +56,7 @@ export class ModalContentComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private httpService: HttpService
+    private httpService: HttpService, private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -186,6 +187,7 @@ export class ModalContentComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner.show();
     const value = this.addressForm.value;
     this.submitReqData.preferredAddress = this.preferredAddress;
     this.submitReqData.otherAddress = {
@@ -215,10 +217,12 @@ export class ModalContentComponent implements OnInit {
           ] = this.addressForm.value;
           this.selectedAddressToEdit = null;
           this.preferredAddressChange = false;
+          this.spinner.hide();
           console.log('Updated successfully');
         },
         error: () => {
-          console.log('error');          
+          console.log('error');  
+          this.spinner.hide();        
           this.showError = true;
           this.errorMsg = 'Something went wrong. Please try again.';
         },
