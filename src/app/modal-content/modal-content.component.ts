@@ -64,7 +64,7 @@ export class ModalContentComponent implements OnInit {
       if(!this.data.HomeAddress.City && !this.data.WorkAddress.City) {
         this.preferredAddress = 'other';
         this.data.PreferredAddress = 'other';
-      }      
+      }
       this.setData(this.data);
     }
   }
@@ -218,6 +218,7 @@ export class ModalContentComponent implements OnInit {
           this.selectedAddressToEdit = null;
           this.preferredAddressChange = false;
           this.spinner.hide();
+          this.fetchAddresses(this.name)
           console.log('Updated successfully');
         },
         error: () => {
@@ -225,6 +226,36 @@ export class ModalContentComponent implements OnInit {
           this.spinner.hide();        
           this.showError = true;
           this.errorMsg = 'Something went wrong. Please try again.';
+        },
+      });
+  }
+
+  fetchAddresses(username: string) {
+    this.spinner.show();
+    const reqData: any = {
+      EmployeeId: username,
+    }
+
+    this.httpService
+      .httpGet(
+        environment.fetchAddress,
+        reqData
+      )
+      .subscribe({
+        next: (res: any) => {
+          console.log('fetched successfully');
+          if (res && !res.error) {
+            this.setData(res);
+          } else {
+            const data = new VerificationInformation;
+            data.EmployeeId = username;
+            this.setData(data);            
+          }
+          this.spinner.hide();
+        },
+        error: () => {
+          console.log('error');
+          this.spinner.hide();
         },
       });
   }
