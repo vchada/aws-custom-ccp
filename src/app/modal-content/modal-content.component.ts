@@ -73,7 +73,7 @@ export class ModalContentComponent implements OnInit {
     if (res) {
       this.submitReqData.email = res.Email;
       this.submitReqData.EmployeeId = res.EmployeeId;
-      
+      this.addressDetails = [];
 
       this.preferredAddress = res.PreferredAddress;
       if (res.HomeAddress) {

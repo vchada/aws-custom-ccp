@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   username: string = '';
 
   contactAttObj: any = new ContactAttribute();
+  userLoggedIn: boolean = false;
 
   constructor(private modalService: NgbModal, private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService) {}
 
@@ -38,6 +39,12 @@ export class AppComponent implements OnInit {
         enableAudioDeviceSettings: true,
         enablePhoneTypeSettings: true,
       },
+    });
+
+    const eventBus = connect.core.getEventBus();
+    eventBus.subscribe(connect.EventType.TERMINATED, () => {
+      console.log('Logged out');
+      this.userLoggedIn = false;
     });
 
     // Listen for the 'contactIncoming' event
@@ -73,7 +80,7 @@ export class AppComponent implements OnInit {
           this.isUserAgent = true;
         }
       }
-
+      this.userLoggedIn = true;
       this.fetchAddresses();
     });
   }
