@@ -31,6 +31,7 @@
     "ag-grid-angular": "^30.0.2",
     "ag-grid-community": "^30.0.2",
     "amazon-connect-streams": "^2.4.7",
+    "angular-user-idle": "^4.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "ngx-spinner": "^15.0.1",
