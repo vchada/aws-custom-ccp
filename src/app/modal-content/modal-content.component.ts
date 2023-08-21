@@ -244,12 +244,12 @@ export class ModalContentComponent implements OnInit {
         next: (res: any) => {
           console.log('fetched successfully');
           if (res && !res.error) {
-            if (res.OtherAddress && res.OtherAddress.ValidationResult !== 2) {              
-              this.setData(res);              
-              this.selectedAddressToEdit = null;
-            } else {
+            if (res.OtherAddress && (res.OtherAddress.ValidationResult == 2 || res.OtherAddress.ValidationResult == '')) { 
               this.showError = true;
               this.errorMsg = 'Address is Invalid. Please enter correct address.';
+            } else {
+              this.setData(res);              
+              this.selectedAddressToEdit = null;
             }
           } else {
             const data = new VerificationInformation;
