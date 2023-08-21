@@ -32,7 +32,7 @@ export class ModalContentComponent implements OnInit {
     state: new FormControl({ value: '', disabled: false }, [
       Validators.required,
     ]),
-    country: new FormControl({ value: '', disabled: false }, [
+    country: new FormControl({ value: 'US', disabled: false }, [
       Validators.required,
     ]),
     postalCode: new FormControl({ value: '', disabled: false }, [
@@ -84,7 +84,7 @@ export class ModalContentComponent implements OnInit {
           city: res.HomeAddress.City,
           postalCode: res.HomeAddress.PostalCode,
           state: res.HomeAddress.State,
-          country: res.HomeAddress.Country,
+          country: 'US',
         });
 
         this.submitReqData.homeAddress = {
@@ -92,7 +92,7 @@ export class ModalContentComponent implements OnInit {
           StreetInfo: res.HomeAddress.StreetInfo,
           City: res.HomeAddress.City,
           State: res.HomeAddress.State,
-          Country: res.HomeAddress.Country,
+          Country: 'US',
           preDirectional: '',
           streetSuffix: '',
           PostalCode: res.HomeAddress.PostalCode
@@ -107,7 +107,7 @@ export class ModalContentComponent implements OnInit {
           city: res.WorkAddress.City,
           postalCode: res.WorkAddress.PostalCode,
           state: res.WorkAddress.State,
-          country: res.WorkAddress.Country,
+          country: 'US',
         });
 
         this.submitReqData.workAddress = {
@@ -115,7 +115,7 @@ export class ModalContentComponent implements OnInit {
           StreetInfo: res.WorkAddress.StreetInfo,
           City: res.WorkAddress.City,
           State: res.WorkAddress.State,
-          Country: res.WorkAddress.Country,
+          Country: 'US',
           preDirectional: '',
           streetSuffix: '',
           PostalCode: res.WorkAddress.PostalCode
@@ -130,7 +130,7 @@ export class ModalContentComponent implements OnInit {
           city: res.OtherAddress.mappedValidateAddressResponse.City ? res.OtherAddress.mappedValidateAddressResponse.City: '',
           postalCode: res.OtherAddress.mappedValidateAddressResponse.PostalCode ? res.OtherAddress.mappedValidateAddressResponse.PostalCode: '',
           state: res.OtherAddress.mappedValidateAddressResponse.State ? res.OtherAddress.mappedValidateAddressResponse.State: '',
-          country: res.OtherAddress.mappedValidateAddressResponse.Country ? res.OtherAddress.mappedValidateAddressResponse.Country: '',
+          country: 'US'
         });
 
         this.awsAccountId = res.OtherAddress.mappedValidateAddressResponse.AwsAccountId;
@@ -140,7 +140,7 @@ export class ModalContentComponent implements OnInit {
           StreetInfo: other.streetInfo,
           City: other.city,
           State: other.state,
-          Country: other.country,
+          Country: 'US',
           preDirectional: '',
           streetSuffix: '',
           PostalCode: other.postalCode,
@@ -195,7 +195,7 @@ export class ModalContentComponent implements OnInit {
       StreetInfo: value.streetInfo,
       City: value.city,
       State: value.state,
-      Country: value.country,
+      Country: 'US',
       preDirectional: '',
       streetSuffix: '',
       PostalCode: value.postalCode,
@@ -215,7 +215,6 @@ export class ModalContentComponent implements OnInit {
               (item: any) => item.type === this.addressForm.value.type
             )
           ] = this.addressForm.value;
-          this.selectedAddressToEdit = null;
           this.preferredAddressChange = false;
           this.spinner.hide();
           this.fetchAddresses(this.name)
@@ -246,7 +245,8 @@ export class ModalContentComponent implements OnInit {
           console.log('fetched successfully');
           if (res && !res.error) {
             if (res.OtherAddress && res.OtherAddress.ValidationResult !== 2) {              
-              this.setData(res);
+              this.setData(res);              
+              this.selectedAddressToEdit = null;
             } else {
               this.showError = true;
               this.errorMsg = 'Address is Invalid. Please enter correct address.';
@@ -254,7 +254,8 @@ export class ModalContentComponent implements OnInit {
           } else {
             const data = new VerificationInformation;
             data.EmployeeId = username;
-            this.setData(data);            
+            this.setData(data);         
+            this.selectedAddressToEdit = null;   
           }
           this.spinner.hide();
         },
