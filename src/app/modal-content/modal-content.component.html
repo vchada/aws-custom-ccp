@@ -61,7 +61,7 @@
     <form [formGroup]="addressForm" *ngIf="selectedAddressToEdit">
       <p>
         <label for="streetNumber">Street Number <span class="text-danger">*</span></label>
-        <input type="text" id="streetNumber" name="streetNumber" class="form-control " formControlName="streetNumber">
+        <input type="text" appAllowInput id="streetNumber" name="streetNumber" class="form-control " formControlName="streetNumber">
       </p>
         <p>
           <label for="streetInfo">Street Info <span class="text-danger">*</span></label>
@@ -85,7 +85,7 @@
 
           <p>
             <label for="postalCode">Postal Code <span class="text-danger">*</span></label>
-            <input type="text" id="postalCode" name="postalCode" class="form-control " formControlName="postalCode">
+            <input type="text" appAllowInput id="postalCode" name="postalCode" class="form-control " formControlName="postalCode">
           </p>
 
     </form>

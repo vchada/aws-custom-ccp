@@ -21,6 +21,7 @@ import { CorsInterceptor } from './services/cors.interceptor';
 import { CommonModule } from '@angular/common';
 import { provideUserIdleConfig } from 'angular-user-idle';
 import { environment } from 'src/environment/environment';
+import { AllowInputDirective } from './directives/restrict-input.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { environment } from 'src/environment/environment';
     PromptLibraryComponent,
     EditPromptLibraryComponent,
     ConfirmationModalComponent,
-    PromptActionRendererComponent 
+    PromptActionRendererComponent,
+    AllowInputDirective
   ],
   imports: [
     BrowserModule,
