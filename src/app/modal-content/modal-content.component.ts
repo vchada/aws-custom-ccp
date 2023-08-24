@@ -123,13 +123,20 @@ export class ModalContentComponent implements OnInit {
       }
 
       if (res.OtherAddress && res.OtherAddress.mappedValidateAddressResponse) {
+        let isValidOtherAddress = false;
+        if (res.OtherAddress && (res.OtherAddress.ValidationResult == 2 || res.OtherAddress.ValidationResult == '')) { 
+          isValidOtherAddress = false;
+        } else {
+          isValidOtherAddress = true;
+        }
+
         this.addressDetails.push({
           type: 'Other',
-          streetNumber: res.OtherAddress.mappedValidateAddressResponse.StreetNumber? res.OtherAddress.mappedValidateAddressResponse.StreetNumber: '',
-          streetInfo: res.OtherAddress.mappedValidateAddressResponse.StreetInfo? res.OtherAddress.mappedValidateAddressResponse.StreetInfo: '',
-          city: res.OtherAddress.mappedValidateAddressResponse.City ? res.OtherAddress.mappedValidateAddressResponse.City: '',
-          postalCode: res.OtherAddress.mappedValidateAddressResponse.PostalCode ? res.OtherAddress.mappedValidateAddressResponse.PostalCode: '',
-          state: res.OtherAddress.mappedValidateAddressResponse.State ? res.OtherAddress.mappedValidateAddressResponse.State: '',
+          streetNumber: (res.OtherAddress.mappedValidateAddressResponse.StreetNumber && isValidOtherAddress)? res.OtherAddress.mappedValidateAddressResponse.StreetNumber: '',
+          streetInfo: (res.OtherAddress.mappedValidateAddressResponse.StreetInfo && isValidOtherAddress)? res.OtherAddress.mappedValidateAddressResponse.StreetInfo: '',
+          city: (res.OtherAddress.mappedValidateAddressResponse.City  && isValidOtherAddress)? res.OtherAddress.mappedValidateAddressResponse.City: '',
+          postalCode: (res.OtherAddress.mappedValidateAddressResponse.PostalCode  && isValidOtherAddress)? res.OtherAddress.mappedValidateAddressResponse.PostalCode: '',
+          state: (res.OtherAddress.mappedValidateAddressResponse.State  && isValidOtherAddress)? res.OtherAddress.mappedValidateAddressResponse.State: '',
           country: 'US'
         });
 

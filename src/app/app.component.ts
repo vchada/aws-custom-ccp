@@ -87,9 +87,9 @@ export class AppComponent implements OnInit {
       this.agent = agent;
       this.username = agent.toSnapshot().agentData.configuration.username;
       this.commonDataService.userName = this.username;
-      const permission = agent.getPermissions();
+      const permission: any[] = agent.getPermissions();
       if (permission) {
-        if (permission.length > 2) {
+        if (permission.length > 2 || permission.includes('real-time-contact-lens-mertrics')) {
           console.log('Supervisor');
           this.isUserAgent = false;
         } else {
