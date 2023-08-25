@@ -64,8 +64,8 @@ export class AppComponent implements OnInit {
     // Listen for the 'contactIncoming' event
     connect.contact((contact: any) => {
       contact.onEnded(() => {
-        this.restart();
-        this.startWatching(); 
+        // this.restart();
+        // this.startWatching(); 
         this.contactAttObj = new ContactAttribute();
         this.commonDataService.contactAttributeChange.next(this.contactAttObj);
       });
@@ -77,8 +77,8 @@ export class AppComponent implements OnInit {
             this.contactAttObj[item.name] = item.value;
           });
         }
-        this.stop();
-        this.stopWatching();
+        // this.stop();
+        // this.stopWatching();
         this.commonDataService.contactAttributeChange.next(this.contactAttObj);
       });
     });
@@ -99,12 +99,10 @@ export class AppComponent implements OnInit {
       }
       this.userLoggedIn = true;
       this.fetchAddresses();
-      
-      this.userIdle.startWatching();
 
       agent.onStateChange((agentState: any) => {
-        console.log('on state change -> ' + agentState);
-        if(agentState.newState !== "Offline") {
+        console.log('on state change -> ' + agentState?.newState);
+        if(agentState.newState === "Available") {
           this.restart();
           this.startWatching(); 
         }
