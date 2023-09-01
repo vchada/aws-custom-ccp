@@ -7,7 +7,7 @@ import { CommonDataService } from './services/common-data.service';
 import { HttpService } from './services/http.service';
 import { VerificationInformation } from './model/verification-information.model';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { UserIdleService } from 'angular-user-idle';
+// import { UserIdleService } from 'angular-user-idle';
 
 declare var connect: any;
 
@@ -24,21 +24,22 @@ export class AppComponent implements OnInit {
   contactAttObj: any = new ContactAttribute();
   userLoggedIn: boolean = false;
 
-  constructor(private modalService: NgbModal, private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService, private userIdle: UserIdleService) {}
+  // private userIdle: UserIdleService;
+  constructor(private modalService: NgbModal, private commonDataService: CommonDataService, private httpService: HttpService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
 
-    this.userIdle.onTimerStart().subscribe(count => {
-      // console.log(count);
-    });
+    // this.userIdle.onTimerStart().subscribe(count => {
+    //   // console.log(count);
+    // });
     
     // Start watch when time is up.
-    this.userIdle.onTimeout().subscribe(() => {
-      this.stop();
-      this.stopWatching();
-      // console.log('30 min Time is up! setting status to offline');
-      this.setAgentStatus();
-    });
+    // this.userIdle.onTimeout().subscribe(() => {
+    //   this.stop();
+    //   this.stopWatching();
+    //   // console.log('30 min Time is up! setting status to offline');
+    //   this.setAgentStatus();
+    // });
 
     connect.core.initCCP(document.getElementById('ccp'), {
       // https://vchada.my.connect.aws/ccp-v2/softphone
@@ -100,50 +101,50 @@ export class AppComponent implements OnInit {
       this.userLoggedIn = true;
       this.fetchAddresses();
 
-      agent.onStateChange((agentState: any) => {
-        console.log('on state change -> ' + agentState?.newState);
-        if(agentState.newState === "Available") {
-          this.restart();
-          this.startWatching(); 
-        }
-      });
+      // agent.onStateChange((agentState: any) => {
+      //   console.log('on state change -> ' + agentState?.newState);
+      //   if(agentState.newState === "Available") {
+      //     this.restart();
+      //     this.startWatching(); 
+      //   }
+      // });
 
     });
   }
 
-  stop() {
-    this.userIdle.stopTimer();
-  }
+  // stop() {
+  //   this.userIdle.stopTimer();
+  // }
 
-  stopWatching() {
-    this.userIdle.stopWatching();
-  }
+  // stopWatching() {
+  //   this.userIdle.stopWatching();
+  // }
 
-  startWatching() {
-    this.userIdle.startWatching();
-  }
+  // startWatching() {
+  //   this.userIdle.startWatching();
+  // }
 
-  restart() {
-    this.userIdle.resetTimer();
-  }
+  // restart() {
+  //   this.userIdle.resetTimer();
+  // }
 
-  setAgentStatus() {
-    if (this.agent != null) {
-      let states = this.agent.getAgentStates();
-      // "states" is an array of changeable states. You can filter the desired state to change by name.
-      let offlineState = states.filter((state: any) => state.name === "Offline")[0];
+  // setAgentStatus() {
+  //   if (this.agent != null) {
+  //     let states = this.agent.getAgentStates();
+  //     // "states" is an array of changeable states. You can filter the desired state to change by name.
+  //     let offlineState = states.filter((state: any) => state.name === "Offline")[0];
                     
-      // Change agent state
-      this.agent.setState(offlineState, {
-        success: function() {
-            console.log("SetState succeeded");
-        },
-        failure: function() {
-        console.log("SetState failed");
-        }
-      });
-    }
-  }
+  //     // Change agent state
+  //     this.agent.setState(offlineState, {
+  //       success: function() {
+  //           console.log("SetState succeeded");
+  //       },
+  //       failure: function() {
+  //       console.log("SetState failed");
+  //       }
+  //     });
+  //   }
+  // }
 
   fetchAddresses() {
     this.spinner.show();

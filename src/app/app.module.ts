@@ -19,7 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PromptActionRendererComponent } from './common-components/prompt-action-renderer/prompt-action-renderer.component';
 import { CorsInterceptor } from './services/cors.interceptor';
 import { CommonModule } from '@angular/common';
-import { provideUserIdleConfig } from 'angular-user-idle';
+// import { provideUserIdleConfig } from 'angular-user-idle';
 import { environment } from 'src/environment/environment';
 import { AllowInputDirective } from './directives/restrict-input.directive';
 
@@ -54,7 +54,7 @@ import { AllowInputDirective } from './directives/restrict-input.directive';
       useClass: CorsInterceptor,
       multi: true
     },
-    provideUserIdleConfig({ idle: 1, timeout: environment.stateInTimeout * 60, ping: 2000 })
+    // provideUserIdleConfig({ idle: 1, timeout: environment.stateInTimeout * 60, ping: 2000 })
   ],
   bootstrap: [AppComponent]
 })
